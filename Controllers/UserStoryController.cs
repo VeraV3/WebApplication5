@@ -21,11 +21,11 @@ namespace WebApplication5.Controllers
             userStory.Id = 1;
             userStory.Title = "Kreiranje korisnicke autentifikacije";
             userStory.Owner = "Tarasita";
-            userStory.Description = "Kreiraj korisnicku autentifikaciju";
+           // userStory.Description = "Kreiraj korisnicku autentifikaciju";
             userStory.Priority = "Middle";
             userStory.Done = false;
-           // userStory.Tasks = new List<Task>();
-          /*  {
+            userStory.Tasks = new List<Task>
+           {
                     new Task
                     {
                         Id = 1,
@@ -41,7 +41,7 @@ namespace WebApplication5.Controllers
                         UserStory = userStory
                     }
             };
-            */ 
+             
             List<UserStory> storyList = new List<UserStory>();
             storyList.Add(userStory);
             return View(storyList);

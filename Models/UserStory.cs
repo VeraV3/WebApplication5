@@ -22,6 +22,6 @@ namespace WebApplication5.Models
 
         public virtual bool Done { get; set; }
 
-       // public IList<Task> Tasks { get; set; }
+        public IList<Task> Tasks { get; set; }
     }
 }

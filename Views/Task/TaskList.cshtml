@@ -1,10 +1,10 @@
-﻿@model IEnumerable<WebApplication5.Models.UserStory>
+﻿@model IEnumerable<WebApplication5.Models.Task>
 
 @{
-    ViewBag.Title = "UserStoryList";
+    ViewBag.Title = "TaskList";
 }
 
-<h2>UserStoryList</h2>
+<h2>TaskList</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -18,7 +18,7 @@
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Priority)
+            @Html.DisplayNameFor(model => model.Status)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Owner)
@@ -38,7 +38,7 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Priority)
+            @Html.DisplayFor(modelItem => item.Status)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Owner)
@@ -50,7 +50,6 @@
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-            @Html.ActionLink("Tasks", "Tasks", new {id=item.Id})
         </td>
     </tr>
 }

@@ -185,6 +185,7 @@
     <Content Include="Views\UserStory\Index.cshtml" />
     <Content Include="Views\Task\Index.cshtml" />
     <Content Include="Views\UserStory\UserStoryList.cshtml" />
+    <Content Include="Views\Task\TaskList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
