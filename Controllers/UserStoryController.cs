@@ -44,7 +44,7 @@ namespace WebApplication5.Controllers
             */ 
             List<UserStory> storyList = new List<UserStory>();
             storyList.Add(userStory);
-            return View();
+            return View(storyList);
         }
     }
 }
