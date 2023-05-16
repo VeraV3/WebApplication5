@@ -31,7 +31,8 @@ namespace WebApplication5.Controllers
             using (var session = sessionFactory.OpenSession())
             {
                 var users = session.Query<Usr>().Take(10).ToList();
-                return View(users);
+                ViewBag.text = "PROSLEDJUJEM OVAJ TEKST";
+                return View();
             }
         }
     }
