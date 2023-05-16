@@ -3,7 +3,7 @@
 namespace WebApplication5.Models
 {
     [Class(Table = "Users")]
-    public class User
+    public class Usr
     {
         [Id(Name = "Id", Column = "id")]
         [Generator(1, Class = "identity")]

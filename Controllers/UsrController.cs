@@ -20,8 +20,8 @@ namespace WebApplication5.Controllers
                 x.Driver<NpgsqlDriver>();
                 x.Dialect<PostgreSQL82Dialect>();
             });
-            //configuration.AddClass(typeof(User));  zbog ovog trazi xml mapiranje a radim preko atributskog
-            configuration.AddAssembly(typeof(User).Assembly);
+            //configuration.AddClass(typeof(Usr));  zbog ovog trazi xml mapiranje a radim preko atributskog
+            configuration.AddAssembly(typeof(Usr).Assembly);
             return configuration.BuildSessionFactory();
         }
 
@@ -30,7 +30,7 @@ namespace WebApplication5.Controllers
             using (var sessionFactory = CreateSessionFactory())
             using (var session = sessionFactory.OpenSession())
             {
-                var users = session.Query<User>().Take(10).ToList();
+                var users = session.Query<Usr>().Take(10).ToList();
                 return View(users);
             }
         }
