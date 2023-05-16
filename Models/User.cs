@@ -1,18 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using NHibernate.Mapping.Attributes;
 
 namespace WebApplication5.Models
 {
+    [Class(Table = "User")]
     public class User
     {
+        [Id(Name = "Id", Column = "id")]
+        [Generator(1, Class = "identity")]
         public virtual int Id { get; set; }
 
-        public virtual string Nick { get; set; }
+        [Property(Column = "username")]
+        public virtual string UserName { get; set; }
 
-        public virtual string email { get; set; }
+        [Property(Column = "email")]
+        public virtual string Email { get; set; }
 
-
+        [Property(Column = "password")]
+        public virtual string Password { get; set; }
     }
 }
