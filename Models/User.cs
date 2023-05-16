@@ -2,7 +2,7 @@
 
 namespace WebApplication5.Models
 {
-    [Class(Table = "User")]
+    [Class(Table = "Users")]
     public class User
     {
         [Id(Name = "Id", Column = "id")]

@@ -20,6 +20,7 @@ namespace WebApplication5.Controllers
                 x.Driver<NpgsqlDriver>();
                 x.Dialect<PostgreSQL82Dialect>();
             });
+            //configuration.AddClass(typeof(User));  zbog ovog trazi xml mapiranje a radim preko atributskog
             configuration.AddAssembly(typeof(User).Assembly);
             return configuration.BuildSessionFactory();
         }
