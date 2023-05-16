@@ -1,0 +1,28 @@
+﻿@model IEnumerable<WebApplication5.Models.Usr>
+
+<h2>User List</h2>
+
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Password</th>
+        </tr>
+    </thead>
+    <tbody>
+          @foreach (var usr in Model)
+          {
+              <tr>
+                  <td>@usr.Id</td>
+                  <td>@usr.UserName</td>
+                  <td>@usr.Email</td>
+                  <td>@usr.Password</td>
+              </tr>
+          }
+        
+    </tbody>
+</table>

@@ -1,18 +1,25 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using System.Linq;
 using System.Web.Mvc;
 using WebApplication5.Models;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Dialect;
 using NHibernate.Driver;
+using System.IO;
 using NHibernate.Mapping.Attributes;
 
 namespace WebApplication5.Controllers
 {
-    public class UsrController : Controller
+    public class KorisnikController : Controller
     {
         private static ISessionFactory CreateSessionFactory()
         {
+            
             var configuration = new Configuration();
             configuration.DataBaseIntegration(x =>
             {
@@ -21,22 +28,42 @@ namespace WebApplication5.Controllers
                 x.Dialect<PostgreSQL82Dialect>();
             });
             //configuration.AddClass(typeof(Usr));  zbog ovog trazi xml mapiranje a radim preko atributskog
-            configuration.AddAssembly(typeof(Usr).Assembly);
+            //configuration.AddClass(typeof(Korisnik));
+            configuration.AddAssembly(typeof(Korisnik).Assembly);
             return configuration.BuildSessionFactory();
         }
 
+        // GET: Korisnik
         public ActionResult Index()
         {
             using (var sessionFactory = CreateSessionFactory())
-
             {
                 using (var session = sessionFactory.OpenSession())
                 {
-                    var users = session.Query<Usr>().Take(10).ToList();
-
-                    return View(users);
+                   // var korisnici = session.Query<Korisnik>().Take(10).ToList();
+                   // return View(users);
                 }
             }
+
+
+
+            // ...
+
+            string s;
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Korisnik.hbm.xml");
+            // bool fileExists = File.Exists(filePath);
+            bool fileExists = System.IO.File.Exists(filePath);
+            if (fileExists)
+            {
+                s = "postoji";
+            }
+            else
+            {
+                s = "ne postoji";
+            }
+
+            ViewBag.text = "PROSLEDJUJEM OVAJ TEKST" + s  ;
+            return View();
         }
     }
 }
