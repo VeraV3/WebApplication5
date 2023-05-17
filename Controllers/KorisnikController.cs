@@ -94,6 +94,7 @@ namespace WebApplication5.Controllers
                             korisnik.Id = id;
                             korisnik.UserName = username;
                             korisnik.Email = email;
+                            //TODO sredi putanju da bude portabilno
                             string filePath = "C:\\Users\\Korisnik\\source\\repos\\WebApplication5\\App_Data\\izlazIzPrograma.txt";
                             string message = $"ID: {id}, Username: {username}, Email: {email}";
                             System.IO.File.AppendAllText(filePath, message + System.Environment.NewLine);
