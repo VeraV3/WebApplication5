@@ -73,6 +73,7 @@ namespace WebApplication5.Controllers
                 }
             }*/
             Korisnik korisnik = new Korisnik();
+            List<Korisnik> listaKorisnika = new List<Korisnik>();
             string connectionString = "Server=localhost;Port=5432;Database=mojabaza;User Id=postgres;Password=1234;";
             using (var connection = new NpgsqlConnection(connectionString))
             {
@@ -95,6 +96,7 @@ namespace WebApplication5.Controllers
                             korisnik.Email = email;
                             string filePath = "C:\\Users\\Korisnik\\Desktop\\izlazIzPrograma";
                             string message = $"ID: {id}, Username: {username}, Email: {email}";
+                            listaKorisnika.Add(korisnik);
                             System.IO.File.AppendAllText(filePath, message + System.Environment.NewLine);
                             
                         }
@@ -103,6 +105,7 @@ namespace WebApplication5.Controllers
 
 
             }
+            ViewBag.Korisnici = listaKorisnika;
             return View();
 
         }
