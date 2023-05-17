@@ -105,7 +105,7 @@ namespace WebApplication5.Controllers
 
             }
            // ViewBag.Korisnici = listaKorisnika;
-            return View();
+            return View(listaKorisnika);
 
         }
 
