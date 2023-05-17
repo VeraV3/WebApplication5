@@ -40,14 +40,16 @@ namespace WebApplication5.Controllers
             {
                 using (var session = sessionFactory.OpenSession())
                 {
-                   // var korisnici = session.Query<Korisnik>().Take(10).ToList();
-                   // return View(users);
+                    var korisnik = session.Get<Korisnik>(9);
+                    ViewBag.text = "PROSLEDJUJEM OVAJ TEKST" + korisnik.UserName;
+                    // var korisnici = session.Query<Korisnik>().Take(10).ToList();
+                     return View();
                 }
             }
 
 
 
-            // ...
+            /*
 
             string s;
             string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Korisnik.hbm.xml");
@@ -60,10 +62,10 @@ namespace WebApplication5.Controllers
             else
             {
                 s = "ne postoji";
-            }
+            }*/
 
-            ViewBag.text = "PROSLEDJUJEM OVAJ TEKST" + s  ;
-            return View();
+           
+            //return View();
         }
     }
 }
