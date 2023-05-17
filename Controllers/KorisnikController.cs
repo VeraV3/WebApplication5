@@ -3,21 +3,78 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Linq;
-using System.Web.Mvc;
-using WebApplication5.Models;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
 using NHibernate;
+using WebApplication5.Models;
+using NHibernate.Tool.hbm2ddl;
 using NHibernate.Cfg;
 using NHibernate.Dialect;
 using NHibernate.Driver;
-using System.IO;
-using NHibernate.Mapping.Attributes;
+//using FluentNHibernate.Tool.hbm2ddl;
 
 namespace WebApplication5.Controllers
 {
     public class KorisnikController : Controller
     {
+
+  /*      private static ISessionFactory CreateSessionFactory()
+        {
+            var sessionFactory = Fluently.Configure()
+                .Database(PostgreSQLConfiguration.Standard.ConnectionString("Server=localhost;Port=5432;Database=mojabaza;User Id=postgres;Password=1234;"))
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Korisnik>().Add<KorisnikMap>()) 
+                .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(false, true))
+                .BuildSessionFactory();
+
+            return sessionFactory;
+        }
+*/
+ /*       private static ISessionFactory CreateSessionFactory()
+        {
+            var configuration = new Configuration();
+            configuration.DataBaseIntegration(x =>
+            {
+                x.ConnectionString = "Server=localhost;Port=5432;Database=mojabaza;User Id=postgres;Password=1234;";
+                x.Driver<NHibernate.Driver.NpgsqlDriver>();
+                x.Dialect<PostgreSQL82Dialect>();
+            });
+
+            configuration.Add(typeof(KorisnikMap));
+
+            return configuration.BuildSessionFactory();
+        }*/
+
         private static ISessionFactory CreateSessionFactory()
+        {
+            var configuration = new Configuration();
+            configuration.DataBaseIntegration(x =>
+            {
+                x.ConnectionString = "Server=localhost;Port=5432;Database=mojabaza;User Id=postgres;Password=1234;";
+                x.Driver<NpgsqlDriver>();
+                x.Dialect<PostgreSQL82Dialect>();
+            });
+
+            configuration.AddAssembly(typeof(KorisnikMap).Assembly);
+
+            return configuration.BuildSessionFactory();
+        }
+
+
+        public ActionResult Index()
+        {
+            using (var sessionFactory = CreateSessionFactory())
+            {
+                using (var session = sessionFactory.OpenSession())
+                {
+                    var korisnik = session.Get<Korisnik>(9);
+                    ViewBag.text = "PROSLEDJUJEM username devetog korisnika" + korisnik.UserName;
+                    return View(korisnik);
+                }
+            }
+        }
+
+
+        /*  private static ISessionFactory CreateSessionFactory()
         {
             
             var configuration = new Configuration();
@@ -43,7 +100,7 @@ namespace WebApplication5.Controllers
                     var korisnik = session.Get<Korisnik>(9);
                     ViewBag.text = "PROSLEDJUJEM OVAJ TEKST" + korisnik.UserName;
                     // var korisnici = session.Query<Korisnik>().Take(10).ToList();
-                     return View();
+                     return View(korisnik);
                 }
             }
 
@@ -64,8 +121,7 @@ namespace WebApplication5.Controllers
                 s = "ne postoji";
             }*/
 
-           
-            //return View();
-        }
+
+        //return View();        }
     }
 }

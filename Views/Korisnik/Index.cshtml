@@ -1,7 +1,8 @@
-﻿
-@{
-    ViewBag.Title = "KORINIK";
+﻿@model WebApplication5.Models.Korisnik;
+@{ 
+    ViewBag.Title = "KORISNIK";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h4>@ViewBag.Text</h4>
+<h4>@Model.UserName</h4>
 <h2>U POGLEDU KORISNIKA SAM</h2>
 
