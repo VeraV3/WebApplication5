@@ -11,6 +11,7 @@ using NHibernate.Tool.hbm2ddl;
 using NHibernate.Cfg;
 using NHibernate.Dialect;
 using NHibernate.Driver;
+using Npgsql;
 //using FluentNHibernate.Tool.hbm2ddl;
 
 namespace WebApplication5.Controllers
@@ -62,7 +63,7 @@ namespace WebApplication5.Controllers
 
         public ActionResult Index()
         {
-            using (var sessionFactory = CreateSessionFactory())
+            /*using (var sessionFactory = CreateSessionFactory())
             {
                 using (var session = sessionFactory.OpenSession())
                 {
@@ -70,7 +71,40 @@ namespace WebApplication5.Controllers
                     ViewBag.text = "PROSLEDJUJEM username devetog korisnika" + korisnik.UserName;
                     return View(korisnik);
                 }
+            }*/
+            Korisnik korisnik = new Korisnik();
+            string connectionString = "Server=localhost;Port=5432;Database=mojabaza;User Id=postgres;Password=1234;";
+            using (var connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+                string query = "SELECT * FROM users";
+                using (var command = new NpgsqlCommand(query, connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                           
+                            int id = reader.GetInt32(0);
+                            string username = reader.GetString(1);
+                            string email = reader.GetString(2);
+
+                            //Korisnik korisnik = new Korisnik();
+                            korisnik.Id = id;
+                            korisnik.UserName = username;
+                            korisnik.Email = email;
+                            string filePath = "C:\\Users\\Korisnik\\Desktop\\izlazIzPrograma";
+                            string message = $"ID: {id}, Username: {username}, Email: {email}";
+                            System.IO.File.AppendAllText(filePath, message + System.Environment.NewLine);
+                            
+                        }
+                    }
+                }
+
+
             }
+            return View();
+
         }
 
 
