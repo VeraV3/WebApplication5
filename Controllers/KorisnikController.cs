@@ -94,18 +94,17 @@ namespace WebApplication5.Controllers
                             korisnik.Id = id;
                             korisnik.UserName = username;
                             korisnik.Email = email;
-                            string filePath = "C:\\Users\\Korisnik\\Desktop\\izlazIzPrograma";
+                            string filePath = "C:\\Users\\Korisnik\\source\\repos\\WebApplication5\\App_Data\\izlazIzPrograma.txt";
                             string message = $"ID: {id}, Username: {username}, Email: {email}";
-                            listaKorisnika.Add(korisnik);
                             System.IO.File.AppendAllText(filePath, message + System.Environment.NewLine);
-                            
+                            listaKorisnika.Add(korisnik);
                         }
                     }
                 }
 
 
             }
-            ViewBag.Korisnici = listaKorisnika;
+           // ViewBag.Korisnici = listaKorisnika;
             return View();
 
         }
