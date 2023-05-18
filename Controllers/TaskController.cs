@@ -1,4 +1,7 @@
-﻿using System;
+﻿using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
+using NHibernate;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +12,14 @@ namespace WebApplication5.Controllers
 {
     public class TaskController : Controller
     {
+
+        private static ISessionFactory CreateSessionFactory()
+        {
+            return Fluently.Configure()
+                .Database(PostgreSQLConfiguration.Standard.ConnectionString("Server=localhost;Port=5432;Database=mojabaza;User Id=postgres;Password=1234;"))
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<TaskMap>())
+                .BuildSessionFactory();
+        }
         // GET: Task
         public ActionResult Index()
         {
@@ -17,15 +28,18 @@ namespace WebApplication5.Controllers
 
         public ActionResult TaskList()
         {
-            List<Task> taskList = new List<Task>();
-            Task task1 = new Task();
-            task1.Id = 1;
-            task1.Title = "prviTask";
-            task1.Owner = "Tara"; 
-            task1.UserStory = new UserStory();
-            taskList.Add(task1);
+            
+            using (var sessionFactory = CreateSessionFactory())
+            {
+                using (var session = sessionFactory.OpenSession())
+                {
+                    List<Task> taskList = new List<Task>();
+                    taskList = session.Query<Task>().Take(10).ToList();
+                    return View(taskList);
+                }
+            }
 
-            return View(taskList);
+            
         }
     }
 }

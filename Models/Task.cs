@@ -13,13 +13,7 @@ namespace WebApplication5.Models
 
         public virtual string Description { get; set; }
 
-        public virtual string Status { get; set; }
-
-        public virtual string Owner { get; set; }
-
-        public virtual UserStory UserStory { get; set; }
-
-        public virtual bool Done { get; set; }
+        public virtual int UserStoryId { get; set; }
 
     }
 }

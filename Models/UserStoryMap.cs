@@ -18,7 +18,7 @@ namespace WebApplication5.Models
                 Map(x => x.Description).Column("description");
                 Map(x => x.UserId).Column("userid");
                 //AutoMap();
-        }
+            }
         }
     
 }
