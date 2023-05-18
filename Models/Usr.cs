@@ -2,20 +2,14 @@
 
 namespace WebApplication5.Models
 {
-    [Class(Table = "Users")]
-    public class Usr
+    namespace WebApplication5.Models
     {
-        [Id(Name = "Id", Column = "id")]
-        [Generator(1, Class = "identity")]
-        public virtual int Id { get; set; }
-
-        [Property(Column = "username")]
-        public virtual string UserName { get; set; }
-
-        [Property(Column = "email")]
-        public virtual string Email { get; set; }
-
-        [Property(Column = "password")]
-        public virtual string Password { get; set; }
+        public class Usr
+        {
+            public virtual int Id { get; set; }
+            public virtual string UserName { get; set; }
+            public virtual string Email { get; set; }
+            public virtual string Password { get; set; }
+        }
     }
 }

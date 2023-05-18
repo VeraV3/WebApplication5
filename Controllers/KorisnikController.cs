@@ -72,7 +72,7 @@ namespace WebApplication5.Controllers
                     return View(korisnik);
                 }
             }*/
-            Korisnik korisnik = new Korisnik();
+            
             List<Korisnik> listaKorisnika = new List<Korisnik>();
             string connectionString = "Server=localhost;Port=5432;Database=mojabaza;User Id=postgres;Password=1234;";
             using (var connection = new NpgsqlConnection(connectionString))
@@ -90,7 +90,7 @@ namespace WebApplication5.Controllers
                             string username = reader.GetString(1);
                             string email = reader.GetString(2);
 
-                            //Korisnik korisnik = new Korisnik();
+                            Korisnik korisnik = new Korisnik();
                             korisnik.Id = id;
                             korisnik.UserName = username;
                             korisnik.Email = email;

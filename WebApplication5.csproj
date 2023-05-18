@@ -289,6 +289,7 @@
     <Compile Include="Models\UserStory.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\Usr.cs" />
+    <Compile Include="Models\UsrMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
