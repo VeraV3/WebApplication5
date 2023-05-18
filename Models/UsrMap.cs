@@ -1,5 +1,5 @@
 ﻿using FluentNHibernate.Mapping;
-using WebApplication5.Models.WebApplication5.Models;
+
 
 namespace WebApplication5.Models
 {

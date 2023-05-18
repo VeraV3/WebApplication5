@@ -2,8 +2,7 @@
 
 namespace WebApplication5.Models
 {
-    namespace WebApplication5.Models
-    {
+    
         public class Usr
         {
             public virtual int Id { get; set; }
@@ -11,5 +10,4 @@ namespace WebApplication5.Models
             public virtual string Email { get; set; }
             public virtual string Password { get; set; }
         }
-    }
 }

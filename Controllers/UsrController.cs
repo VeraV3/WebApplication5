@@ -4,7 +4,7 @@ using NHibernate;
 using System.Linq;
 using System.Web.Mvc;
 using WebApplication5.Models;
-using WebApplication5.Models.WebApplication5.Models;
+
 
 namespace WebApplication5.Controllers
 {
@@ -25,7 +25,7 @@ namespace WebApplication5.Controllers
                 using (var session = sessionFactory.OpenSession())
                 {
                     var users = session.Query<Usr>().Take(10).ToList();
-                    return View();
+                    return View(users);
                 }
             }
         }
