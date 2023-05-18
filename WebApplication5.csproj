@@ -294,6 +294,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\izlazIzPrograma.txt" />
+    <Content Include="App_Data\kreiraj.sql" />
+    <Content Include="App_Data\task.sql" />
+    <Content Include="App_Data\users.sql" />
+    <Content Include="App_Data\userstory.sql" />
     <Content Include="Content\bootstrap-darkly.css" />
     <Content Include="Content\bootstrap-journal.css" />
     <Content Include="Content\bootstrap-sketchy.css" />
@@ -339,6 +343,7 @@
     <Content Include="Views\Task\TaskList.cshtml" />
     <Content Include="Views\Usr\Index.cshtml" />
     <Content Include="Views\Korisnik\Index.cshtml" />
+    <Content Include="Views\Usr\ShowList.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
