@@ -287,6 +287,7 @@
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\UserStory.cs" />
+    <Compile Include="Models\UserStoryMap.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\Usr.cs" />
     <Compile Include="Models\UsrMap.cs" />
@@ -339,11 +340,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\UserStory\Index.cshtml" />
     <Content Include="Views\Task\Index.cshtml" />
-    <Content Include="Views\UserStory\UserStoryList.cshtml" />
     <Content Include="Views\Task\TaskList.cshtml" />
     <Content Include="Views\Usr\Index.cshtml" />
     <Content Include="Views\Korisnik\Index.cshtml" />
     <Content Include="Views\Usr\ShowList.cshtml" />
+    <Content Include="Views\UserStory\UserStoryList.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -14,14 +14,7 @@ namespace WebApplication5.Models
 
         public virtual string Description { get; set; }
 
+        public virtual int UserId { get; set; }
 
-        public virtual string Priority { get; set; }
-
-
-        public virtual string Owner { get; set; }
-
-        public virtual bool Done { get; set; }
-
-        public IList<Task> Tasks { get; set; }
     }
 }
