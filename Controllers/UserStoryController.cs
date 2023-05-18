@@ -33,8 +33,9 @@ namespace WebApplication5.Controllers
                 {
                     using (var session = sessionFactory.OpenSession())
                     {   List<UserStory> storyList = new List<UserStory>();
-                        storyList = session.Query<UserStory>().Take(10).ToList();
-                        return View(storyList);
+                        storyList = session.Query<UserStory>().ToList();
+                        //storyList = session.Query<UserStory>().Take(10).ToList();
+                    return View(storyList);
                     }
                 }
             

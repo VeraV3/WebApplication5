@@ -34,7 +34,7 @@ namespace WebApplication5.Controllers
                 using (var session = sessionFactory.OpenSession())
                 {
                     List<Task> taskList = new List<Task>();
-                    taskList = session.Query<Task>().Take(10).ToList();
+                    taskList = session.Query<Task>().ToList();
                     return View(taskList);
                 }
             }
