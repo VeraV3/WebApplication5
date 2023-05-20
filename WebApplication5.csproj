@@ -274,6 +274,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AcountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KorisnikController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
@@ -346,6 +347,7 @@
     <Content Include="Views\Usr\ShowList.cshtml" />
     <Content Include="Views\UserStory\UserStoryList.cshtml" />
     <Content Include="Views\Task\TaskList.cshtml" />
+    <Content Include="Views\Acount\Login.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
