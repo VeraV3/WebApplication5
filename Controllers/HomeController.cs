@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace WebApplication5.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class HomeController : Controller
     {
 

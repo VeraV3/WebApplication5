@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Logout";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Logout</title>
+</head>
+<body>
+    <h2>Logout</h2>
+
+    <p>Are you sure you want to logout?</p>
+
+    @using (Html.BeginForm("Logout", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <input type="submit" value="Logout" class="btn btn-primary" />
+    }
+</body>
+</html>
