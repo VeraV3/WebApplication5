@@ -1,10 +1,10 @@
-﻿@{
-    ViewBag.Title = "Logout";
+﻿@using Microsoft.AspNetCore.Identity
+
+@{
     Layout = null;
 }
 
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -13,13 +13,39 @@
 <body>
     <h2>Logout</h2>
 
-    <p>Are you sure you want to logout?</p>
+    <form method="post" action="@Url.Action("Logout", "Account")">
+        <input type="submit" value="Logout" />
+    </form>
+</body>
+</html>
 
-    @using (Html.BeginForm("Logout", "Account", FormMethod.Post))
+
+
+@*
+
+    @{
+        ViewBag.Title = "Logout";
+    }
+
+    <h2>Logout</h2>
+
+
+    @using (Html.BeginForm())
     {
-        @Html.AntiForgeryToken()
+    //    @Html.AntiForgeryToken()
+
+
 
         <input type="submit" value="Logout" class="btn btn-primary" />
     }
-</body>
-</html>
+
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+    <div class="alert alert-danger">
+        <br />
+        <br />
+        @ViewBag.ErrorMessage
+    </div>
+    }
+
+*@
