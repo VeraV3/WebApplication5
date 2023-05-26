@@ -1,7 +1,7 @@
 ﻿
 @model WebApplication5.Models.UserStory
 
-@using (Html.BeginForm("Edit", "UserStory", FormMethod.Post))
+@using (Html.BeginForm("Edit", "UserStory", new { id = Model.Id }, FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 

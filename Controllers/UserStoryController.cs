@@ -102,6 +102,7 @@ namespace WebApplication5.Controllers
 
        
         [HttpPost]
+        [Route("UserStory/Edit/{id}")]
         public ActionResult Edit(UserStory userStory)
         {
             if (ModelState.IsValid)
