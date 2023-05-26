@@ -101,7 +101,7 @@ namespace WebApplication5.Controllers
         }
 
        
-       // [HttpPost]
+        [HttpPost]
         public ActionResult Edit(UserStory userStory)
         {
             if (ModelState.IsValid)

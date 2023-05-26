@@ -15,6 +15,12 @@ namespace WebApplication5
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+    name: "EditUserStory",
+    url: "userstory/edit/{id}",
+    defaults: new { controller = "UserStory", action = "Edit" }
+);
+
+            routes.MapRoute(
             name: "Logout",
             url: "Account/Logout",
             defaults: new { controller = "Account", action = "Logout" }
