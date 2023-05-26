@@ -13,7 +13,7 @@ namespace WebApplication5.Controllers
 {
     public class UserStoryController : Controller
     {
-
+        
         private static ISessionFactory CreateSessionFactory()
         {
             return Fluently.Configure()
@@ -100,12 +100,50 @@ namespace WebApplication5.Controllers
             
         }
 
-        public ActionResult Edit(int id)
+       
+       // [HttpPost]
+        public ActionResult Edit(UserStory userStory)
         {
-            return RedirectToAction("UserStoryList", "UserStory");
+            if (ModelState.IsValid)
+            {
+                using (var sessionFactory = CreateSessionFactory())
+                {
+                    using (var session = sessionFactory.OpenSession())
+                    {
+                        // Učitajte postojeću priču iz baze podataka na osnovu ID-ja
+                        var existingUserStory = session.Get<UserStory>(userStory.Id);
+                        if (existingUserStory == null)
+                        {
+                            return HttpNotFound();
+                        }
+
+                        // Ažurirajte polja sa novim vrednostima
+                        existingUserStory.Title = userStory.Title;
+                        existingUserStory.Description = userStory.Description;
+
+                        // Sačuvajte ažuriranu priču u bazu podataka
+                        using (var transaction = session.BeginTransaction())
+                        {
+                            session.Update(existingUserStory);
+                            transaction.Commit();
+                        }
+
+                        return RedirectToAction("UserStoryList");
+                    }
+                }
+            }
+
+            // Ako je ModelState neispravan, ponovno prikažite formu sa validacionim porukama
+            return View(userStory);
         }
 
-        public ActionResult Details(int id)
+        /*
+            return RedirectToAction("UserStoryList", "UserStory");
+        }   
+    */
+
+         //TODO ispravi logiku i dodaj userStrory ovde detailsModelView, linkove sredi
+         public ActionResult Details(int id)
         {
             using (var sessionFactory = Fluently.Configure()
                 .Database(PostgreSQLConfiguration.Standard.ConnectionString("Server=localhost;Port=5432;Database=mojabaza;User Id=postgres;Password=1234;"))
@@ -121,24 +159,8 @@ namespace WebApplication5.Controllers
             }
 
         }
-        /*
-
-        public IList<Task> GetTasksForUserStory(int userStoryId)
-            {
-                using (var session = sessionFactory.OpenSession())
-                {
-                    var userStory = session.Get<UserStory>(userStoryId);
-                    if (userStory != null)
-                    {
-                        return userStory.Tasks;
-                    }
-                    else
-                    {
-                        return new List<Task>(); 
-                    }
-                }
-            }
-        */
+      
+       
          List<Task> GetTasksForUserStory(int userStoryId, ISessionFactory sessionFactory)
         {
             using (var session = sessionFactory.OpenSession())
