@@ -144,7 +144,7 @@ namespace WebApplication5.Controllers
             using (var session = sessionFactory.OpenSession())
             {
                 var sqlQuery = session.CreateSQLQuery(@"
-                    SELECT t.id, t.title, t.description
+                    SELECT t.id, t.title, t.description, t.userstoryid
                     FROM task t
                     JOIN userstory us ON t.userstoryid = us.id
                     WHERE us.id = :userStoryId
