@@ -9,12 +9,12 @@
             @Html.ActionLink("Tarinjosa", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
         </div>
         <div class="navbar-collapse collapse">
-            @if (User.Identity.IsAuthenticated)
+            @* @if (User.Identity.IsAuthenticated)*@
             {
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("User stories", "UserStoryList", "UserStory")</li>
-                    <li>@Html.ActionLink("Tasks", "TaskList", "Task")</li>
-                </ul>
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("User stories", "UserStoryList", "UserStory")</li>
+                <li>@Html.ActionLink("Tasks", "TaskList", "Task")</li>
+            </ul>
             }
             <ul class="nav navbar-nav navbar-right">
                 @if (User.Identity.IsAuthenticated)

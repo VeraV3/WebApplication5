@@ -1,6 +1,8 @@
 ﻿using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
+using NHibernate.Cfg;
+using NHibernate.Mapping.ByCode;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -41,6 +43,57 @@ namespace WebApplication5.Controllers
             
             
            
+        }
+
+       // [HttpPost]
+        public ActionResult Create(UserStory userStory)
+        {
+            /*FormCollection formCollection
+            UserStory userStory = new UserStory();
+            userStory.Title = formCollection["Title"];
+            userStory.Description = formCollection["Description"];
+            */
+
+
+
+
+
+            /*
+            var configuration = new Configuration();
+            configuration.Configure(); 
+            var mapper = new ModelMapper();
+            mapper.AddMapping(typeof(UserStoryMap)); 
+
+            configuration.AddMapping(mapper.CompileMappingForAllExplicitlyAddedEntities());
+
+            ISessionFactory sessionFactory = configuration.BuildSessionFactory();
+            ISession session = sessionFactory.OpenSession();
+            */
+
+
+            userStory.Id = 999;
+            userStory.UserId = 1;
+            
+            using (var sessionFactory = CreateSessionFactory())
+            {
+                using (var session = sessionFactory.OpenSession())
+                {
+                    using (var transaction = session.BeginTransaction())
+                    {
+                        session.Save(userStory);
+                        transaction.Commit();
+                    }
+
+                }
+            }
+            
+
+
+            /*session.Close();
+            sessionFactory.Close();*/
+
+            // return RedirectToAction("Index", "Home");
+            return View();
         }
     }
 }

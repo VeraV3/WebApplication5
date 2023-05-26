@@ -11,31 +11,27 @@ using WebApplication5.Models;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
-
-
 public class AccountController : Controller
 {
     private readonly UserManager<Usr> _userManager;
     private readonly SignInManager<Usr> _signInManager;
 
-    public AccountController()
-    {
+    public AccountController() {}
 
-    }
     public AccountController(UserManager<Usr> userManager, SignInManager<Usr> signInManager)
     {
         _userManager = userManager;
         _signInManager = signInManager;
     }
 
-    // Akcija za prikaz forme za registraciju
+
+    
     public ActionResult Register()
     {
         return View();
     }
 
-    // Akcija za procesiranje podataka iz forme za registraciju
-    [System.Web.Mvc.HttpPost]
+    [HttpPost]
     public async Task<ActionResult> Register(RegisterViewModel model)
     {
         if (ModelState.IsValid)
@@ -58,14 +54,13 @@ public class AccountController : Controller
         return View(model);
     }
 
-    // Akcija za prikaz forme za logovanje
+  
     public ActionResult Login()
     {
         return View();
     }
 
-    // Akcija za procesiranje podataka iz forme za logovanje
-    [System.Web.Mvc.HttpPost]
+    [HttpPost]
     public async Task<ActionResult> Login(LoginViewModel model, string returnUrl = null)
     {
         if (ModelState.IsValid)
@@ -85,7 +80,11 @@ public class AccountController : Controller
         return View(model);
     }
 
-    // Akcija za odjavljivanje
+/*    public ActionResult Logout()
+    {
+        return View();
+    }
+*/
     [HttpPost]
     public async Task<ActionResult> Logout()
     {

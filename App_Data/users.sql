@@ -1,5 +1,5 @@
 insert into users (username, email, password) values ('dalexis0', 'choulaghan0@google.com.br', 'oiMftH9JmtAq');
-insert into users (username, email, password) values ('cflipek1', 'mlunnon1@live.com', 'MKJGxu');
+insert into users (username, email, password) values ('cflipek1', 'mlunnon1@live.com', '');
 insert into users (username, email, password) values ('rmaides2', 'afrosch2@kickstarter.com', 'fjMh1ampHx');
 insert into users (username, email, password) values ('tshakelade3', 'tbruni3@ezinearticles.com', 'C6kYqJP');
 insert into users (username, email, password) values ('ameany4', 'gcisco4@newsvine.com', 'HYgYvq');
