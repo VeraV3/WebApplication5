@@ -101,13 +101,13 @@ namespace WebApplication5.Controllers
         }
 
        
-       // [HttpPost]
-        //[Route("UserStory/Edit/{id}")]
+      //  [HttpPost]
+        [Route("UserStory/Edit/{id}")]
         public ActionResult Edit(UserStory userStory)
         {
             if (ModelState.IsValid)
             {
-                using (var sessionFactory = CreateSessionFactory())
+                /*using (var sessionFactory = CreateSessionFactory())
                 {
                     using (var session = sessionFactory.OpenSession())
                     {
@@ -131,12 +131,15 @@ namespace WebApplication5.Controllers
 
                         return RedirectToAction("UserStoryList");
                     }
-                }
+
+              
+                }*/  return Content(string.Format("Model state je validan, UserStory na koji ste kliknuli je {0}", userStory.Title));
             }
 
-            // Ako je ModelState neispravan, ponovno prikažite formu sa validacionim porukama
-            return View(userStory);
-        }
+            // Ako je ModelState neispravan, ponovno prikaži formu sa validacionim porukama
+            //return View(userStory);
+            return Content("Model state nije validaaaannnn!");    
+    }
 
         /*
             return RedirectToAction("UserStoryList", "UserStory");
