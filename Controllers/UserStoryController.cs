@@ -45,7 +45,7 @@ namespace WebApplication5.Controllers
            
         }
 
-       // [HttpPost]
+        //[HttpPost]
         public ActionResult Create(UserStory userStory)
         {
             /*FormCollection formCollection
@@ -71,10 +71,13 @@ namespace WebApplication5.Controllers
             */
 
 
-            userStory.Id = 999;
-            userStory.UserId = 1;
             
-            using (var sessionFactory = CreateSessionFactory())
+            /*userStory.UserId = 1;
+
+            using (var sessionFactory = Fluently.Configure()
+                    .Database(PostgreSQLConfiguration.Standard.ConnectionString("Server=localhost;Port=5432;Database=mojabaza;User Id=postgres;Password=1234;"))
+                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<UserStoryMap>())
+                    .BuildSessionFactory()) 
             {
                 using (var session = sessionFactory.OpenSession())
                 {
@@ -86,14 +89,71 @@ namespace WebApplication5.Controllers
 
                 }
             }
+            */
             
 
 
             /*session.Close();
             sessionFactory.Close();*/
 
-            // return RedirectToAction("Index", "Home");
-            return View();
+             return RedirectToAction("Index", "Home");
+            
+        }
+
+        public ActionResult Edit(int id)
+        {
+            return RedirectToAction("UserStoryList", "UserStory");
+        }
+
+        public ActionResult Details(int id)
+        {
+            using (var sessionFactory = Fluently.Configure()
+                .Database(PostgreSQLConfiguration.Standard.ConnectionString("Server=localhost;Port=5432;Database=mojabaza;User Id=postgres;Password=1234;"))
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<TaskMap>())
+                .BuildSessionFactory()) 
+            {
+
+                List<Task> taskList = GetTasksForUserStory(id, sessionFactory);
+        
+                 
+                return View(taskList);
+                
+            }
+
+        }
+        /*
+
+        public IList<Task> GetTasksForUserStory(int userStoryId)
+            {
+                using (var session = sessionFactory.OpenSession())
+                {
+                    var userStory = session.Get<UserStory>(userStoryId);
+                    if (userStory != null)
+                    {
+                        return userStory.Tasks;
+                    }
+                    else
+                    {
+                        return new List<Task>(); 
+                    }
+                }
+            }
+        */
+         List<Task> GetTasksForUserStory(int userStoryId, ISessionFactory sessionFactory)
+        {
+            using (var session = sessionFactory.OpenSession())
+            {
+                var sqlQuery = session.CreateSQLQuery(@"
+                    SELECT t.id, t.title, t.description
+                    FROM task t
+                    JOIN userstory us ON t.userstoryid = us.id
+                    WHERE us.id = :userStoryId
+                ");
+                sqlQuery.SetInt32("userStoryId", userStoryId);
+                sqlQuery.AddEntity(typeof(Task));
+
+                return sqlQuery.List<Task>().ToList<Task>();
+            }
         }
     }
 }

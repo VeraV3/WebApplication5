@@ -412,6 +412,8 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\UserStory\Create.cshtml" />
+    <Content Include="Views\UserStory\Edit.cshtml" />
+    <Content Include="Views\UserStory\Details.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
