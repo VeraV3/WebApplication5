@@ -11,23 +11,22 @@ namespace WebApplication5.Controllers
     public class HomeController : Controller
     {
 
-        // Akcije dostupne samo za prijavljene korisnike
+        
 
         // Tabelarni prikaz user story-a
         public ActionResult UserStories()
         {
-            // Implementirajte logiku za prikaz user story-a iz baze
+            
             return View();
         }
 
         // Tabelarni prikaz taskova
         public ActionResult Tasks()
         {
-            // Implementirajte logiku za prikaz taskova iz baze
             return View();
         }
 
-        // Ostale akcije
+        
         public ActionResult Index()
         {
             return View();
@@ -35,14 +34,14 @@ namespace WebApplication5.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "O aplikaciji";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Kontakt stranica";
 
             return View();
         }

@@ -45,7 +45,7 @@ namespace WebApplication5.Controllers
            
         }
 
-        //[HttpPost]
+        [HttpPost]
         public ActionResult Create(UserStory userStory)
         {
             /*FormCollection formCollection
@@ -72,7 +72,7 @@ namespace WebApplication5.Controllers
 
 
             
-            /*userStory.UserId = 1;
+          //  userStory.UserId = 1;
 
             using (var sessionFactory = Fluently.Configure()
                     .Database(PostgreSQLConfiguration.Standard.ConnectionString("Server=localhost;Port=5432;Database=mojabaza;User Id=postgres;Password=1234;"))
@@ -89,14 +89,14 @@ namespace WebApplication5.Controllers
 
                 }
             }
-            */
+            
             
 
 
             /*session.Close();
             sessionFactory.Close();*/
 
-             return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "UserStory");
             
         }
 
@@ -133,7 +133,7 @@ namespace WebApplication5.Controllers
                     }
 
               
-                }*/  return Content(string.Format("Model state je validan, UserStory na koji ste kliknuli je {0}", userStory.Title));
+                }*/  return Content(string.Format("Model state je validan, UserStory na koji ste kliknuli je {0}", userStory.Title) );
             }
 
             // Ako je ModelState neispravan, ponovno prikaži formu sa validacionim porukama
@@ -145,6 +145,24 @@ namespace WebApplication5.Controllers
             return RedirectToAction("UserStoryList", "UserStory");
         }   
     */
+        public ActionResult Delete(int id)
+        {
+            using (var sessionFactory = Fluently.Configure()
+               .Database(PostgreSQLConfiguration.Standard.ConnectionString("Server=localhost;Port=5432;Database=mojabaza;User Id=postgres;Password=1234;"))
+               .Mappings(m => m.FluentMappings.AddFromAssemblyOf<TaskMap>())
+               .BuildSessionFactory())
+            {
+
+                DeleteTasksForUserStory(id, sessionFactory);
+                DeleteUserStory(id, sessionFactory);
+
+                return RedirectToAction("UserStoryList", "UserStory");
+ 
+
+            }
+
+            
+        }
 
          //TODO ispravi logiku i dodaj userStrory ovde detailsModelView, linkove sredi
          public ActionResult Details(int id)
@@ -181,5 +199,42 @@ namespace WebApplication5.Controllers
                 return sqlQuery.List<Task>().ToList<Task>();
             }
         }
+
+        void DeleteTasksForUserStory(int userStoryId, ISessionFactory sessionFactory)
+        {
+            using (var session = sessionFactory.OpenSession())
+            {
+                var sqlQuery = session.CreateSQLQuery(@"
+                  DELETE FROM task
+                  WHERE userstoryid = :userStoryId
+                ");
+                sqlQuery.SetInt32("userStoryId", userStoryId);
+
+                using (var transaction = session.BeginTransaction())
+                {
+                    sqlQuery.ExecuteUpdate();
+                    transaction.Commit();
+                }
+            }
+        }
+        void DeleteUserStory(int userStoryId, ISessionFactory sessionFactory)
+        {
+            using (var session = sessionFactory.OpenSession())
+            {
+                var sqlQuery = session.CreateSQLQuery(@"
+                    DELETE FROM userstory
+                    WHERE id = :userStoryId
+                 ");
+                sqlQuery.SetInt32("userStoryId", userStoryId);
+
+                using (var transaction = session.BeginTransaction())
+                {
+                    sqlQuery.ExecuteUpdate();
+                    transaction.Commit();
+                }
+            }
+        }
+
+
     }
 }
