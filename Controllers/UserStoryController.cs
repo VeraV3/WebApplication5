@@ -171,15 +171,25 @@ namespace WebApplication5.Controllers
             {
                 using (var session = sessionFactory.OpenSession())
                 {
+                    var existingUserStory = session.Get<UserStory>(userStory.Id);
+                    if (existingUserStory == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    existingUserStory.Title = userStory.Title;
+                    existingUserStory.Description = userStory.Description;
+
                     using (var transaction = session.BeginTransaction())
                     {
-                        session.Update(userStory);
+                        session.Update(existingUserStory);
                         transaction.Commit();
                     }
                 }
             }
             return RedirectToAction("UserStoryList");
         }
+
         public ActionResult Delete(int id)
         {
             using (var sessionFactory = Fluently.Configure()
