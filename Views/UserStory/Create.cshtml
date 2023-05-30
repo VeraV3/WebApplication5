@@ -8,7 +8,7 @@
 
 @using (Html.BeginForm("Create", "UserStory", FormMethod.Post))
 {
-   // @Html.AntiForgeryToken()
+    // @Html.AntiForgeryToken()
 
     <div class="form-group">
         @Html.LabelFor(model => model.Title)
@@ -22,13 +22,13 @@
         @Html.ValidationMessageFor(model => model.Description)
     </div>
 
-    <input type="submit" value="Submit" class="btn btn-primary" />
+    <button type="submit" class="btn btn-primary">Save</button>
 }
 
 
 
 
-<!--
+<!--     <input type="submit" value="Submit" class="btn btn-primary" />
 <form action="UserStory/Create" method="post">
     <label for="Title">Title:</label>
     <input type="text" id="title" name="Title" required><br>
