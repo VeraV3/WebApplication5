@@ -45,107 +45,51 @@ namespace WebApplication5.Controllers
            
         }
 
-
-        [HttpPost]
-        [Route("UserStory/Create/")]
-        public ActionResult Create(UserStory userStory)
+        public ActionResult Create()
         {
-            /*FormCollection formCollection
-            UserStory userStory = new UserStory();
-            userStory.Title = formCollection["Title"];
-            userStory.Description = formCollection["Description"];
-            */
-
-
-
-
-
-            /*
-            var configuration = new Configuration();
-            configuration.Configure(); 
-            var mapper = new ModelMapper();
-            mapper.AddMapping(typeof(UserStoryMap)); 
-
-            configuration.AddMapping(mapper.CompileMappingForAllExplicitlyAddedEntities());
-
-            ISessionFactory sessionFactory = configuration.BuildSessionFactory();
-            ISession session = sessionFactory.OpenSession();
-            */
-
-
-            
-          //  userStory.UserId = 1;
-
-            using (var sessionFactory = Fluently.Configure()
-                    .Database(PostgreSQLConfiguration.Standard.ConnectionString("Server=localhost;Port=5432;Database=mojabaza;User Id=postgres;Password=1234;"))
-                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<UserStoryMap>())
-                    .BuildSessionFactory()) 
-            {
-                using (var session = sessionFactory.OpenSession())
-                {
-                    using (var transaction = session.BeginTransaction())
-                    {
-                        session.Save(userStory);
-                        transaction.Commit();
-                    }
-
-                }
-            }
-            
-            
-
-
-            /*session.Close();
-            sessionFactory.Close();*/
-
-            return RedirectToAction("Index", "UserStory");
-            
+            return View();
         }
 
+        [HttpPost]
+        public ActionResult Create(UserStory userStory)
+        {
+            
+            if (ModelState.IsValid)
+            {
+             
+                int nextId;
+                using (var sessionFactory = CreateSessionFactory())
+                {
+                    using (var session = sessionFactory.OpenSession())
+                    {
+                        var maxId = session.Query<UserStory>().Max(us => us.Id);
+                        nextId = maxId + 1;
+                    }
+                }
 
-        //  [HttpPost]
-        // [Route("UserStory/Edit/{id}")]
-        /*  public ActionResult Edit(UserStory userStory)
-          {
-              if (ModelState.IsValid)
-              {
-                  using (var sessionFactory = CreateSessionFactory())
-                  {
-                      using (var session = sessionFactory.OpenSession())
-                      {
+                
+                userStory.Id = nextId;
 
-                          var existingUserStory = session.Get<UserStory>(userStory.Id);
-                          if (existingUserStory == null)
-                          {
-                              return HttpNotFound();
-                          }
+                
+                using (var sessionFactory = CreateSessionFactory())
+                {
+                    using (var session = sessionFactory.OpenSession())
+                    {
+                        using (var transaction = session.BeginTransaction())
+                        {
+                            session.SaveOrUpdate(userStory);
+                            transaction.Commit();
+                        }
+                    }
+                }
 
-                          existingUserStory.Title = userStory.Title;
-                          existingUserStory.Description = userStory.Description;
+                return RedirectToAction("UserStoryList");
+            }
 
-                          using (var transaction = session.BeginTransaction())
-                          {
-                              session.Update(existingUserStory);
-                              transaction.Commit();
-                          }
+            // Ako model nije validan, ponovno prikazujemo formu za unos sa greškama
+            return View(userStory);
+        }
 
-                          return RedirectToAction("UserStoryList");
-                      }
-
-
-                  }  //return Content(string.Format("Model state je validan, UserStory na koji ste kliknuli je {0}", userStory.Title) );
-              }
-
-              // Ako je ModelState neispravan, ponovno prikaži formu sa validacionim porukama
-              //return View(userStory);
-              return Content("Model state nije validaaaannnn!");    
-      }
-
-          /*
-              return RedirectToAction("UserStoryList", "UserStory");
-          }   
-      */
-        // Akcija za prikaz forme za uređivanje zadatka
         public ActionResult Edit(int id)
         {
             using (var sessionFactory = CreateSessionFactory())
@@ -162,8 +106,7 @@ namespace WebApplication5.Controllers
                 }
             }
         }
-
-        // Akcija za izmenu 
+       
         [HttpPost]
         public ActionResult Edit(UserStory userStory)
         {
