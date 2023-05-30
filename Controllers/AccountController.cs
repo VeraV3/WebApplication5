@@ -1,4 +1,4 @@
-﻿using FluentNHibernate.Cfg;
+﻿/*using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using NHibernate.Cfg;
@@ -85,7 +85,7 @@ public class AccountController : Controller
         return View();
     }
 */
-    [HttpPost]
+  /*  [HttpPost]
     public async Task<ActionResult> Logout()
     {
         await _signInManager.SignOutAsync();

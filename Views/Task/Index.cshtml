@@ -1,7 +1,24 @@
 ﻿
+@model WebApplication5.Models.Task
+
 @{
     ViewBag.Title = "Task";
 }
 
 <h2>U Index metodi? Task view-a sam</h2>
 
+
+@using (Html.BeginForm("AddTask", "Task", FormMethod.Post))
+{
+    <div>
+        @Html.LabelFor(model => model.Title)
+        @Html.TextBoxFor(model => model.Title)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.Description)
+        @Html.TextBoxFor(model => model.Description)
+    </div>
+    <div>
+        <input type="submit" value="Add Task" />
+    </div>
+}

@@ -18,6 +18,7 @@ namespace WebApplication5.Controllers
             return Fluently.Configure()
                 .Database(PostgreSQLConfiguration.Standard.ConnectionString("Server=localhost;Port=5432;Database=mojabaza;User Id=postgres;Password=1234;"))
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<TaskMap>())
+                .ExposeConfiguration(cfg => { cfg.SetProperty(NHibernate.Cfg.Environment.UseProxyValidator, bool.FalseString); })
                 .BuildSessionFactory();
         }
         // GET: Task
@@ -28,7 +29,7 @@ namespace WebApplication5.Controllers
 
         public ActionResult TaskList()
         {
-            
+
             using (var sessionFactory = CreateSessionFactory())
             {
                 using (var session = sessionFactory.OpenSession())
@@ -39,7 +40,7 @@ namespace WebApplication5.Controllers
                 }
             }
 
-            
+
         }
 
         public ActionResult Delete(int id)
@@ -50,7 +51,7 @@ namespace WebApplication5.Controllers
                .BuildSessionFactory())
             {
 
-                
+
                 DeleteTask(id, sessionFactory);
 
                 return RedirectToAction("TaskList", "Task");
@@ -62,23 +63,77 @@ namespace WebApplication5.Controllers
         }
 
         void DeleteTask(int taskId, ISessionFactory sessionFactory)
+        {
+            using (var session = sessionFactory.OpenSession())
             {
-                using (var session = sessionFactory.OpenSession())
-                {
-                    var sqlQuery = session.CreateSQLQuery(@"
+                var sqlQuery = session.CreateSQLQuery(@"
                          DELETE FROM task
                          WHERE id = :taskId
                      ");
-                    sqlQuery.SetInt32("taskId", taskId);
+                sqlQuery.SetInt32("taskId", taskId);
 
+                using (var transaction = session.BeginTransaction())
+                {
+                    sqlQuery.ExecuteUpdate();
+                    transaction.Commit();
+                }
+            }
+        }
+
+
+
+        public ActionResult AddTask(Task task)
+        {
+            using (var sessionFactory = CreateSessionFactory())
+            {
+                using (var session = sessionFactory.OpenSession())
+                {
                     using (var transaction = session.BeginTransaction())
                     {
-                        sqlQuery.ExecuteUpdate();
+                        session.SaveOrUpdate(task);
                         transaction.Commit();
                     }
                 }
             }
 
+            return RedirectToAction("TaskList", "Task");
         }
-    
+
+        // Akcija za prikaz forme za uređivanje zadatka
+        public ActionResult Edit(int id)
+        {
+            using (var sessionFactory = CreateSessionFactory())
+            {
+                using (var session = sessionFactory.OpenSession())
+                {
+                    var task = session.Get<Task>(id);
+                    if (task == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    return View(task);
+                }
+            }
+        }
+
+        // Akcija za izmenu zadatka
+        [HttpPost]
+        public ActionResult Edit(Task task)
+        {
+            using (var sessionFactory = CreateSessionFactory())
+            {
+                using (var session = sessionFactory.OpenSession())
+                {
+                    using (var transaction = session.BeginTransaction())
+                    {
+                        session.Update(task);
+                        transaction.Commit();
+                    }
+                }
+            }
+            return RedirectToAction("TaskList");
+        }
+
+    }
 }

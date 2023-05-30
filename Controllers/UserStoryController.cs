@@ -17,7 +17,7 @@ namespace WebApplication5.Controllers
         private static ISessionFactory CreateSessionFactory()
         {
             return Fluently.Configure()
-                .Database(PostgreSQLConfiguration.Standard.ConnectionString("Server=localhost;Port=5432;Database=mojabaza;User Id=postgres;Password=1234;"))
+                .Database(PostgreSQLConfiguration.Standard.ConnectionString("Server=localhost;Port=5432;Database=mojabaza;User Id=postgres;Password=1234;Include Error Detail=true;"))
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<UserStoryMap>())
                 .BuildSessionFactory();
         }
@@ -45,7 +45,9 @@ namespace WebApplication5.Controllers
            
         }
 
+
         [HttpPost]
+        [Route("UserStory/Create/")]
         public ActionResult Create(UserStory userStory)
         {
             /*FormCollection formCollection
@@ -100,51 +102,84 @@ namespace WebApplication5.Controllers
             
         }
 
-       
-      //  [HttpPost]
-        [Route("UserStory/Edit/{id}")]
-        public ActionResult Edit(UserStory userStory)
+
+        //  [HttpPost]
+        // [Route("UserStory/Edit/{id}")]
+        /*  public ActionResult Edit(UserStory userStory)
+          {
+              if (ModelState.IsValid)
+              {
+                  using (var sessionFactory = CreateSessionFactory())
+                  {
+                      using (var session = sessionFactory.OpenSession())
+                      {
+
+                          var existingUserStory = session.Get<UserStory>(userStory.Id);
+                          if (existingUserStory == null)
+                          {
+                              return HttpNotFound();
+                          }
+
+                          existingUserStory.Title = userStory.Title;
+                          existingUserStory.Description = userStory.Description;
+
+                          using (var transaction = session.BeginTransaction())
+                          {
+                              session.Update(existingUserStory);
+                              transaction.Commit();
+                          }
+
+                          return RedirectToAction("UserStoryList");
+                      }
+
+
+                  }  //return Content(string.Format("Model state je validan, UserStory na koji ste kliknuli je {0}", userStory.Title) );
+              }
+
+              // Ako je ModelState neispravan, ponovno prikaži formu sa validacionim porukama
+              //return View(userStory);
+              return Content("Model state nije validaaaannnn!");    
+      }
+
+          /*
+              return RedirectToAction("UserStoryList", "UserStory");
+          }   
+      */
+        // Akcija za prikaz forme za uređivanje zadatka
+        public ActionResult Edit(int id)
         {
-            if (ModelState.IsValid)
+            using (var sessionFactory = CreateSessionFactory())
             {
-                /*using (var sessionFactory = CreateSessionFactory())
+                using (var session = sessionFactory.OpenSession())
                 {
-                    using (var session = sessionFactory.OpenSession())
+                    var userStory = session.Get<UserStory>(id);
+                    if (userStory == null)
                     {
-                        // Učitajte postojeću priču iz baze podataka na osnovu ID-ja
-                        var existingUserStory = session.Get<UserStory>(userStory.Id);
-                        if (existingUserStory == null)
-                        {
-                            return HttpNotFound();
-                        }
-
-                        // Ažurirajte polja sa novim vrednostima
-                        existingUserStory.Title = userStory.Title;
-                        existingUserStory.Description = userStory.Description;
-
-                        // Sačuvajte ažuriranu priču u bazu podataka
-                        using (var transaction = session.BeginTransaction())
-                        {
-                            session.Update(existingUserStory);
-                            transaction.Commit();
-                        }
-
-                        return RedirectToAction("UserStoryList");
+                        return HttpNotFound();
                     }
 
-              
-                }*/  return Content(string.Format("Model state je validan, UserStory na koji ste kliknuli je {0}", userStory.Title) );
+                    return View(userStory);
+                }
             }
+        }
 
-            // Ako je ModelState neispravan, ponovno prikaži formu sa validacionim porukama
-            //return View(userStory);
-            return Content("Model state nije validaaaannnn!");    
-    }
-
-        /*
-            return RedirectToAction("UserStoryList", "UserStory");
-        }   
-    */
+        // Akcija za izmenu 
+        [HttpPost]
+        public ActionResult Edit(UserStory userStory)
+        {
+            using (var sessionFactory = CreateSessionFactory())
+            {
+                using (var session = sessionFactory.OpenSession())
+                {
+                    using (var transaction = session.BeginTransaction())
+                    {
+                        session.Update(userStory);
+                        transaction.Commit();
+                    }
+                }
+            }
+            return RedirectToAction("UserStoryList");
+        }
         public ActionResult Delete(int id)
         {
             using (var sessionFactory = Fluently.Configure()
@@ -164,8 +199,8 @@ namespace WebApplication5.Controllers
             
         }
 
-         //TODO ispravi logiku i dodaj userStrory ovde detailsModelView, linkove sredi
-         public ActionResult Details(int id)
+        //TODO ispravi logiku i dodaj userStrory ovde detailsModelView, linkove sredi
+        public ActionResult Details(int id)
         {
             using (var sessionFactory = Fluently.Configure()
                 .Database(PostgreSQLConfiguration.Standard.ConnectionString("Server=localhost;Port=5432;Database=mojabaza;User Id=postgres;Password=1234;"))
@@ -181,9 +216,8 @@ namespace WebApplication5.Controllers
             }
 
         }
-      
-       
-         List<Task> GetTasksForUserStory(int userStoryId, ISessionFactory sessionFactory)
+        
+        List<Task> GetTasksForUserStory(int userStoryId, ISessionFactory sessionFactory)
         {
             using (var session = sessionFactory.OpenSession())
             {
@@ -199,7 +233,7 @@ namespace WebApplication5.Controllers
                 return sqlQuery.List<Task>().ToList<Task>();
             }
         }
-
+        
         void DeleteTasksForUserStory(int userStoryId, ISessionFactory sessionFactory)
         {
             using (var session = sessionFactory.OpenSession())
@@ -217,6 +251,7 @@ namespace WebApplication5.Controllers
                 }
             }
         }
+        
         void DeleteUserStory(int userStoryId, ISessionFactory sessionFactory)
         {
             using (var session = sessionFactory.OpenSession())
