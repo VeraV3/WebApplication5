@@ -410,6 +410,7 @@
     <Content Include="Views\UserStory\Edit.cshtml" />
     <Content Include="Views\UserStory\Details.cshtml" />
     <Content Include="Views\Task\Edit.cshtml" />
+    <Content Include="Views\Shared\_UserStoryListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

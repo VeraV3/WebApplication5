@@ -28,21 +28,49 @@ namespace WebApplication5.Controllers
             return View();
         }
 
-        public ActionResult UserStoryList()
+        /*  public ActionResult UserStoryList()
+          {
+
+                  using (var sessionFactory = CreateSessionFactory())
+                  {
+                      using (var session = sessionFactory.OpenSession())
+                      {   List<UserStory> storyList = new List<UserStory>();
+                          storyList = session.Query<UserStory>().ToList();
+                          //storyList = session.Query<UserStory>().Take(10).ToList();
+                      return View(storyList);
+                      }
+                  }
+
+
+
+          }
+        */
+
+
+        public ActionResult UserStoryList(string owner)
         {
-           
-                using (var sessionFactory = CreateSessionFactory())
+            using (var sessionFactory = CreateSessionFactory())
+            {
+                using (var session = sessionFactory.OpenSession())
                 {
-                    using (var session = sessionFactory.OpenSession())
-                    {   List<UserStory> storyList = new List<UserStory>();
-                        storyList = session.Query<UserStory>().ToList();
-                        //storyList = session.Query<UserStory>().Take(10).ToList();
-                    return View(storyList);
+                    IQueryable<UserStory> query = session.Query<UserStory>();
+
+                    if (!string.IsNullOrEmpty(owner))
+                    {
+                        //TODO napraviti viewmodel
+                        query = query.Where(us => us.Title == owner);
                     }
+
+                    List<UserStory> storyList = query.ToList();
+
+                    if (Request.IsAjaxRequest())
+                    {
+                        return PartialView("_UserStoryListPartial", storyList);
+                    }
+
+                    return View(storyList);
                 }
-            
-            
-           
+            }
         }
 
         public ActionResult Create()
