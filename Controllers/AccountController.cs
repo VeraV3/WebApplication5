@@ -1,4 +1,4 @@
-﻿/*using FluentNHibernate.Cfg;
+﻿using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using NHibernate.Cfg;
@@ -10,8 +10,7 @@ using System.Web.Mvc;
 using WebApplication5.Models;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-
-public class AccountController : Controller
+/*public class AccountController : Controller
 {
     private readonly UserManager<Usr> _userManager;
     private readonly SignInManager<Usr> _signInManager;
@@ -80,12 +79,12 @@ public class AccountController : Controller
         return View(model);
     }
 
-/*    public ActionResult Logout()
+    public ActionResult Logout()
     {
         return View();
     }
-*/
-  /*  [HttpPost]
+
+    [HttpPost]
     public async Task<ActionResult> Logout()
     {
         await _signInManager.SignOutAsync();
@@ -98,8 +97,8 @@ public class AccountController : Controller
 
 
 
-
 /*
+
 namespace WebApplication5.Controllers
 {
     public class AccountController : Controller
@@ -177,5 +176,4 @@ namespace WebApplication5.Controllers
 
     }
 }
-
 */
