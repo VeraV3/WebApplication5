@@ -348,6 +348,7 @@
     <Compile Include="Models\TaskViewModel.cs" />
     <Compile Include="Models\UserStory.cs" />
     <Compile Include="Models\UserStoryMap.cs" />
+    <Compile Include="Models\UserStoryViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\Usr.cs" />
     <Compile Include="Models\UsrMap.cs" />
@@ -417,6 +418,7 @@
     <Content Include="Views\Task\Edit.cshtml" />
     <Content Include="Views\Shared\_UserStoryListPartial.cshtml" />
     <Content Include="Views\Task\AddTask.cshtml" />
+    <Content Include="Views\Shared\_TaskListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

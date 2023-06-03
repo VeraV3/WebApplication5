@@ -67,7 +67,7 @@ namespace WebApplication5.Controllers
           }
         */
 
-        public ActionResult TaskList()
+        public ActionResult TaskList(string owner)
         {
             using (var sessionFactory = CreateSessionFactory())
             {
@@ -88,6 +88,16 @@ namespace WebApplication5.Controllers
                         taskViewModel.task = item.Task;
 
                         taskViewModelList.Add(taskViewModel);
+                    }
+
+                    if (!string.IsNullOrEmpty(owner))
+                    {
+                        taskViewModelList = taskViewModelList.Where(taskvm => taskvm.Owner == owner).ToList();
+                    }
+
+                    if (Request.IsAjaxRequest())
+                    {
+                        return PartialView("_taskListPartial", taskViewModelList);
                     }
 
                     return View(taskViewModelList);

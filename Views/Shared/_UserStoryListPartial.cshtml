@@ -1,5 +1,5 @@
 ﻿
-@model List<WebApplication5.Models.UserStory>
+@model List<WebApplication5.Models.UserStoryViewModel>
 
 <table>
     <tr>
@@ -10,12 +10,12 @@
     </tr>
     @foreach (var story in Model)
     {
-<tr>
-    <td>@story.Id </td>
-    <td>@story.Title</td>
-    <td>@story.Description</td>
-    @* <td>@story.Owner </td>*@
-</tr>
+        <tr>
+            <td>@story.userStory.Id </td>
+            <td>@story.userStory.Title</td>
+            <td>@story.userStory.Description</td>
+            <td>@story.Owner </td>
+        </tr>
     }
 </table>
 

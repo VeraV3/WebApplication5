@@ -1,5 +1,5 @@
 ﻿* vlasnik taska ili price koja se pravi da bude ulogovani korisnik
-* sredi linkove u listama, izbrisi suvisno
+* sredi linkove u listama, izbrisi suvisno u details user story
 * napravi modelview-e za te liste da mozes da iscitas vlasnika user story-a i taska i da ga prikazes
 * registracija
 * logovanje
@@ -9,3 +9,10 @@
 * napravi za taskove filtriranje prema vlasniku
 * napravi za userstory-e filtriranje prema vlasniku (umesto prema imenu user story-a? :D )
 * pozabavi se jos formama
+* napravi folder za modelView
+* pokusaj opet sa helper folderom
+* pokusaj ponovo sa crtez temom i dugmadima
+* pokusaj helper da ugradis u sve fajlove gde treba umesto ponavljanja koda
+* problemi sa kreiranjem userstory-a
+
+DONE:

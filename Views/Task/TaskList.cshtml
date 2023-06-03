@@ -1,49 +1,77 @@
 ﻿@model IEnumerable<WebApplication5.Models.TaskViewModel>
 
 @{
-    ViewBag.Title = "TaskList";
+    ViewBag.Title = "Task list";
 }
 
-<h2>TaskList</h2>
+<h2>Task list</h2>
 
-<p>
-    @Html.ActionLink("Create New", "AddTask")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.task.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.task.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Owner)
-        </th>
-        <th> 
-            @Html.DisplayNameFor(model => model.UserStoryTitle)
-        </th>
-    </tr>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.task.Title)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.task.Description)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Owner)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.UserStoryTitle)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.task.Id }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.task.Id })
-    </td>
-</tr>
+@using (Html.BeginForm("TaskList", "Task", FormMethod.Get))
+    {<p>
+        @Html.ActionLink("Create new", "AddTask")
+    </p>
+    <label>Owner:</label>
+    @Html.TextBox("owner", ViewBag.FilterOwner as string)
+    <input type="submit" value="Filter" />
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.task.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.task.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Owner)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserStoryTitle)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.task.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.task.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Owner)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserStoryTitle)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.task.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.task.Id })
+                </td>
+            </tr>
+        }
+
+    </table>
 }
 
-</table>
+@section scripts {
+    <script>
+        $(function () {
+            $('form').submit(function (event) {
+                event.preventDefault();
+
+                var owner = $('#owner').val();
+
+                $.ajax({
+                    url: '@Url.Action("TaskList", "Task")',
+                    type: 'GET',
+                    data: { owner: owner },
+                    success: function (result) {
+                        $('table').html(result);
+                    }
+                });
+            });
+        });
+    </script>
+}

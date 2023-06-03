@@ -1,0 +1,20 @@
+﻿@model List<WebApplication5.Models.TaskViewModel>
+
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Owner</th>
+        <th>User story title</th>
+    </tr>
+    @foreach (var task in Model)
+    {
+        <tr>
+            <td>@task.task.Title </td>
+            <td>@task.task.Description</td>
+            <td>@task.Owner</td>
+            <td>@task.UserStoryTitle</td>
+        </tr>
+    }
+</table>
+

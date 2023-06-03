@@ -54,24 +54,43 @@ namespace WebApplication5.Controllers
                 using (var session = sessionFactory.OpenSession())
                 {
                     IQueryable<UserStory> query = session.Query<UserStory>();
+                    List<UserStory> storyList = query.ToList();
+                    List<UserStoryViewModel> usViewModels = new List<UserStoryViewModel>();
+
+                    foreach (UserStory story in storyList)
+                    {
+                        Usr user = session.Query<Usr>().FirstOrDefault(u => u.Id == story.UserId);
+
+                   
+                        if (user != null)
+                        {
+                            
+                            UserStoryViewModel viewModel = new UserStoryViewModel
+                            {
+                                Owner = user.UserName,
+                                userStory = story
+                            };
+
+                            usViewModels.Add(viewModel);
+                        }
+                    }
 
                     if (!string.IsNullOrEmpty(owner))
                     {
-                        //TODO napraviti viewmodel
-                        query = query.Where(us => us.Title == owner);
+                        usViewModels = usViewModels.Where(us => us.Owner == owner).ToList();
                     }
-
-                    List<UserStory> storyList = query.ToList();
 
                     if (Request.IsAjaxRequest())
                     {
-                        return PartialView("_UserStoryListPartial", storyList);
+                        return PartialView("_UserStoryListPartial", usViewModels);
                     }
 
-                    return View(storyList);
+                    return View(usViewModels);
                 }
             }
         }
+
+
 
         public ActionResult Create()
         {

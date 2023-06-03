@@ -1,10 +1,10 @@
-﻿@model IEnumerable<WebApplication5.Models.UserStory>
+﻿@model IEnumerable<WebApplication5.Models.UserStoryViewModel>
 
 @{
-    ViewBag.Title = "UserStoryList";
+    ViewBag.Title = "User story list";
 }
 
-<h2>UserStoryList</h2>
+<h2>User story list</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -19,13 +19,13 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                @Html.DisplayNameFor(model => model.userStory.Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.userStory.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UserId)
+                @Html.DisplayNameFor(model => model.Owner)
             </th>
             <th></th>
         </tr>
@@ -34,18 +34,18 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Title)
+                    @Html.DisplayFor(modelItem => item.userStory.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Description)
+                    @Html.DisplayFor(modelItem => item.userStory.Description)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserId)
+                    @Html.DisplayFor(modelItem => item.Owner)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Edit", "Edit", new { id = item.userStory.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.userStory.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.userStory.Id })
                 </td>
             </tr>
         }
@@ -56,16 +56,16 @@
     <script>
         $(function () {
             $('form').submit(function (event) {
-                event.preventDefault(); // sprečavanje podnošenja forme
+                event.preventDefault(); 
 
-                var owner = $('#owner').val(); // vrednost unosa
+                var owner = $('#owner').val();
 
                 $.ajax({
                     url: '@Url.Action("UserStoryList", "UserStory")',
                     type: 'GET',
                     data: { owner: owner },
                     success: function (result) {
-                        $('table').html(result); // ažuriranje tabele
+                        $('table').html(result); 
                     }
                 });
             });
