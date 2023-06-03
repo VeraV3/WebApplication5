@@ -28,44 +28,7 @@ namespace WebApplication5.Controllers
         }
 
 
-        /*  public ActionResult TaskList()
-          {
-              using (var sessionFactory = CreateSessionFactory())
-              {
-                  using (var session = sessionFactory.OpenSession())
-                  {
-                      var taskViewModelList = new List<TaskViewModel>();
-                      var taskList = session.Query<Task>().ToList();
-
-                      foreach (var task in taskList)
-                      {
-                          var taskViewModel = new TaskViewModel();
-
-                          // Izvršavanje upita za vlasnika koristeći spajanje tabela
-                          var ownerQuery = session.Query<UserStory>()
-                              .Join(session.Query<Usr>(), userStory => userStory.UserId, user => user.Id, (userStory, user) => new { UserStory = userStory, User = user })
-                              .Where(joinResult => joinResult.UserStory.Id == task.UserStoryId)
-                              .Select(joinResult => joinResult.User.UserName)
-                              .FirstOrDefault();
-
-                          // Izvršavanje upita za naslov priče korisnika
-                          var userStoryTitleQuery = session.Query<UserStory>()
-                              .Where(userStory => userStory.Id == task.UserStoryId)
-                              .Select(userStory => userStory.Title)
-                              .FirstOrDefault();
-
-                          taskViewModel.owner = ownerQuery ?? "N/A"; // Ako vlasnik nije pronađen, postavljamo na "N/A"
-                          taskViewModel.userStoryTitle = userStoryTitleQuery ?? "N/A"; // Ako naslov priče korisnika nije pronađen, postavljamo na "N/A"
-                          taskViewModel.task = task;
-
-                          taskViewModelList.Add(taskViewModel);
-                      }
-
-                      return View(taskViewModelList);
-                  }
-              }
-          }
-        */
+       
 
         public ActionResult TaskList(string owner)
         {

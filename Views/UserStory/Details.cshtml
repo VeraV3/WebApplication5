@@ -1,45 +1,42 @@
-﻿
-@model IEnumerable<WebApplication5.Models.Task>
+﻿@model IEnumerable<WebApplication5.Models.TaskViewModel>
 
 @{
-    ViewBag.Title = "TaskList FOR SPECIFIC USER";
+    ViewBag.Title = "Task list for this user story";
+    var firstItem = Model.FirstOrDefault();
+    var userStoryTitle = firstItem != null ? firstItem.UserStoryTitle : string.Empty;
+    var owner = firstItem != null ? firstItem.Owner : string.Empty;
 }
 
-<h2>TaskList</h2>
+<h2>Task list for user story named: @userStoryTitle</h2>
+<h3>Owner: @owner</h3>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Add new tasks for this user story", "Create") <!--promeni akciju i dodaj new { id = item.task.Id }-->
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.task.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.task.Description)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserStoryId)
-        </th>
-        <th></th>
+  
+       
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                @Html.DisplayFor(modelItem => item.task.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @Html.DisplayFor(modelItem => item.task.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserStoryId)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Edit", "Edit" ,new { id = item.task.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.task.Id })
             </td>
         </tr>
     }

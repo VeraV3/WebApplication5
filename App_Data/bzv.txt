@@ -163,3 +163,31 @@ namespace WebApplication5.Controllers
     }
 }
 */
+
+
+        public ActionResult Details(int id)
+        {
+            using (var session = NHibernateHelper2.OpenSession()) 
+            { 
+
+                List<TaskViewModel> taskViewModelList = new List<TaskViewModel>();
+
+                var taskList = session.Query<Task>()
+                       .Join(session.Query<UserStory>(), task => task.UserStoryId, userStory => userStory.Id, (task, userStory) => new { Task = task, UserStory = userStory })
+                       .Join(session.Query<Usr>(), joinResult => joinResult.UserStory.UserId, user => user.Id, (joinResult, user) => new { Task = joinResult.Task, UserStory = joinResult.UserStory, User = user })
+                       .ToList();
+
+                foreach (var item in taskList)
+                {
+                    var taskViewModel = new TaskViewModel();
+                    taskViewModel.Owner = item.User.UserName;
+                    taskViewModel.UserStoryTitle = item.UserStory.Title;
+                    taskViewModel.task = item.Task;
+
+                    taskViewModelList.Add(taskViewModel);
+                }
+
+
+                return View(taskViewModelList);
+                
+            }

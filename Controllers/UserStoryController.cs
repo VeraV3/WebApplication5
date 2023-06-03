@@ -133,7 +133,7 @@ namespace WebApplication5.Controllers
                 return RedirectToAction("UserStoryList");
             }
 
-            // Ako model nije validan, ponovno prikazujemo formu za unos sa greškama
+            
             return View(userStory);
         }
 
@@ -199,7 +199,7 @@ namespace WebApplication5.Controllers
             
         }
 
-        //TODO ispravi logiku i dodaj userStrory ovde detailsModelView, linkove sredi
+        
         public ActionResult Details(int id)
         {
             using (var sessionFactory = Fluently.Configure()
@@ -209,9 +209,33 @@ namespace WebApplication5.Controllers
             {
 
                 List<Task> taskList = GetTasksForUserStory(id, sessionFactory);
-        
-                 
-                return View(taskList);
+
+                List<TaskViewModel> taskViewModelList = new List<TaskViewModel>();
+                using (var session = sessionFactory.OpenSession())
+                {
+                    foreach (var task in taskList)
+                    {
+                        
+                        var ownerQuery = session.Query<UserStory>()
+                            .Join(session.Query<Usr>(), userStory => userStory.UserId, user => user.Id, (userStory, user) => new { UserStory = userStory, User = user })
+                            .Where(joinResult => joinResult.UserStory.Id == task.UserStoryId)
+                            .Select(joinResult => joinResult.User.UserName)
+                            .FirstOrDefault();
+
+                        
+                        var userStoryTitleQuery = session.Query<UserStory>()
+                            .Where(userStory => userStory.Id == task.UserStoryId)
+                            .Select(userStory => userStory.Title)
+                            .FirstOrDefault();
+
+                        var taskViewModel = new TaskViewModel();
+                        taskViewModel.task = task;
+                        taskViewModel.Owner  = ownerQuery ?? "N/A";
+                        taskViewModel.UserStoryTitle = userStoryTitleQuery ?? "N/A";
+                        taskViewModelList.Add(taskViewModel);
+                    }
+                }
+                return View(taskViewModelList);
                 
             }
 

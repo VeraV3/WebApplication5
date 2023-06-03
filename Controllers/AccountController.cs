@@ -10,11 +10,6 @@ using System.Web.Mvc;
 using WebApplication5.Models;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using WebApplication5.Models;
-using NHibernate;
-using NHibernate.Cfg;
 using System.Web.SessionState;
 
 

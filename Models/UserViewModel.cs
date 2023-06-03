@@ -10,7 +10,7 @@ namespace WebApplication5.Models
         
             public string Username { get; set; }
             public string Email { get; set; }
-            // Ostali atributi korisnika
+            
         
 
     }
