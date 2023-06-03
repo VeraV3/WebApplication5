@@ -97,12 +97,12 @@ namespace WebApplication5.Controllers
                 {
                     using (var transaction = session.BeginTransaction())
                     {
-                        session.Save(user);
+                        session.Save(user); // ovde se baca izuzetak
                         transaction.Commit();
                     }
                 }
 
-                // TODO prijavi korisnika
+                // TODO prijavi korisnika 
 
                 // Redirektuj na odredište
                 return RedirectToAction("Index", "Home");
