@@ -81,7 +81,11 @@ namespace WebApplication5.Controllers
         }
 
 
-
+        public ActionResult AddTask()
+        {
+            return View();
+        }
+        [HttpPost]
         public ActionResult AddTask(Task task)
         {
             using (var sessionFactory = CreateSessionFactory())

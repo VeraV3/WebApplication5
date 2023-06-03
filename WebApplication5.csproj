@@ -345,6 +345,7 @@
     <Compile Include="Models\NHibernateHelper.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\TaskMap.cs" />
+    <Compile Include="Models\TaskViewModel.cs" />
     <Compile Include="Models\UserStory.cs" />
     <Compile Include="Models\UserStoryMap.cs" />
     <Compile Include="Models\UserViewModel.cs" />
@@ -414,6 +415,7 @@
     <Content Include="Views\UserStory\Details.cshtml" />
     <Content Include="Views\Task\Edit.cshtml" />
     <Content Include="Views\Shared\_UserStoryListPartial.cshtml" />
+    <Content Include="Views\Task\AddTask.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
