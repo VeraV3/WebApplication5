@@ -32,16 +32,15 @@ namespace WebApplication5.Models
 
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "Email is required.")]
-        [EmailAddress(ErrorMessage = "Invalid email format.")]
+        [Required(ErrorMessage = "Imejl je obavezan")]
+        [EmailAddress(ErrorMessage = "Pogresan format za imejl!")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Password is required.")]
+        [Required(ErrorMessage = "Pasvord je obavezno polje!")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me")]
-        public bool RememberMe { get; set; }
+    
     }
 
 }
