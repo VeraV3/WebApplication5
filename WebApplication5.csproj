@@ -358,6 +358,7 @@
     <Content Include="App_Data\izlazIzPrograma.txt" />
     <Content Include="App_Data\kreiraj.sql" />
     <Content Include="App_Data\task.sql" />
+    <Content Include="App_Data\TODO.txt" />
     <Content Include="App_Data\users.sql" />
     <Content Include="App_Data\userstory.sql" />
     <Content Include="Content\bootstrap-darkly.css" />

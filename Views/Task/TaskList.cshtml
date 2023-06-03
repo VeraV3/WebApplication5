@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebApplication5.Models.Task>
+﻿@model IEnumerable<WebApplication5.Models.TaskViewModel>
 
 @{
     ViewBag.Title = "TaskList";
@@ -7,39 +7,43 @@
 <h2>TaskList</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "AddTask")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.task.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.task.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserStoryId)
+            @Html.DisplayNameFor(model => model.Owner)
         </th>
-        <th></th>
+        <th> 
+            @Html.DisplayNameFor(model => model.UserStoryTitle)
+        </th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserStoryId)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.task.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.task.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Owner)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.UserStoryTitle)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.task.Id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.task.Id })
+    </td>
+</tr>
 }
 
 </table>

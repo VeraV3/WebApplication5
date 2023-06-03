@@ -27,20 +27,72 @@ namespace WebApplication5.Controllers
             return View();
         }
 
+
+        /*  public ActionResult TaskList()
+          {
+              using (var sessionFactory = CreateSessionFactory())
+              {
+                  using (var session = sessionFactory.OpenSession())
+                  {
+                      var taskViewModelList = new List<TaskViewModel>();
+                      var taskList = session.Query<Task>().ToList();
+
+                      foreach (var task in taskList)
+                      {
+                          var taskViewModel = new TaskViewModel();
+
+                          // Izvršavanje upita za vlasnika koristeći spajanje tabela
+                          var ownerQuery = session.Query<UserStory>()
+                              .Join(session.Query<Usr>(), userStory => userStory.UserId, user => user.Id, (userStory, user) => new { UserStory = userStory, User = user })
+                              .Where(joinResult => joinResult.UserStory.Id == task.UserStoryId)
+                              .Select(joinResult => joinResult.User.UserName)
+                              .FirstOrDefault();
+
+                          // Izvršavanje upita za naslov priče korisnika
+                          var userStoryTitleQuery = session.Query<UserStory>()
+                              .Where(userStory => userStory.Id == task.UserStoryId)
+                              .Select(userStory => userStory.Title)
+                              .FirstOrDefault();
+
+                          taskViewModel.owner = ownerQuery ?? "N/A"; // Ako vlasnik nije pronađen, postavljamo na "N/A"
+                          taskViewModel.userStoryTitle = userStoryTitleQuery ?? "N/A"; // Ako naslov priče korisnika nije pronađen, postavljamo na "N/A"
+                          taskViewModel.task = task;
+
+                          taskViewModelList.Add(taskViewModel);
+                      }
+
+                      return View(taskViewModelList);
+                  }
+              }
+          }
+        */
+
         public ActionResult TaskList()
         {
-
             using (var sessionFactory = CreateSessionFactory())
             {
                 using (var session = sessionFactory.OpenSession())
                 {
-                    List<Task> taskList = new List<Task>();
-                    taskList = session.Query<Task>().ToList();
-                    return View(taskList);
+                    var taskViewModelList = new List<TaskViewModel>();
+
+                    var taskList = session.Query<Task>()
+                        .Join(session.Query<UserStory>(), task => task.UserStoryId, userStory => userStory.Id, (task, userStory) => new { Task = task, UserStory = userStory })
+                        .Join(session.Query<Usr>(), joinResult => joinResult.UserStory.UserId, user => user.Id, (joinResult, user) => new { Task = joinResult.Task, UserStory = joinResult.UserStory, User = user })
+                        .ToList();
+
+                    foreach (var item in taskList)
+                    {
+                        var taskViewModel = new TaskViewModel();
+                        taskViewModel.Owner = item.User.UserName;
+                        taskViewModel.UserStoryTitle = item.UserStory.Title;
+                        taskViewModel.task = item.Task;
+
+                        taskViewModelList.Add(taskViewModel);
+                    }
+
+                    return View(taskViewModelList);
                 }
             }
-
-
         }
 
         public ActionResult Delete(int id)
@@ -86,18 +138,18 @@ namespace WebApplication5.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddTask(Task task)
+        public ActionResult AddTask(TaskViewModel model)
         {
             //TODO: ovde bi vlasnik ovog taska trebalo da bude ulogovani korisnik, odn da bude task njegovog user story-a
             //za sada cu sve stavljati da budu taskovi user story-a 23. :D
-            task.UserStoryId = 23;
+            model.task.UserStoryId = 23;
             using (var sessionFactory = CreateSessionFactory())
             {
                 using (var session = sessionFactory.OpenSession())
                 {
                     using (var transaction = session.BeginTransaction())
                     {
-                        session.SaveOrUpdate(task);
+                        session.SaveOrUpdate(model.task);
                         transaction.Commit();
                     }
                 }

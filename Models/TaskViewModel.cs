@@ -7,7 +7,8 @@ namespace WebApplication5.Models
 {
     public class TaskViewModel
     {
-        public Usr owner { get; set; }
+        public String Owner { get; set; }
+        public String UserStoryTitle { get; set; }
         public Task task { get; set; }
     }
 }

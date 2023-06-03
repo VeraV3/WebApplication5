@@ -1,0 +1,11 @@
+﻿* vlasnik taska ili price koja se pravi da bude ulogovani korisnik
+* sredi linkove u listama, izbrisi suvisno
+* napravi modelview-e za te liste da mozes da iscitas vlasnika user story-a i taska i da ga prikazes
+* registracija
+* logovanje
+* ogranicen pristup
+* napravi neki popup
+* dodaj svim view-ima deljeni layout
+* napravi za taskove filtriranje prema vlasniku
+* napravi za userstory-e filtriranje prema vlasniku (umesto prema imenu user story-a? :D )
+* pozabavi se jos formama
