@@ -88,6 +88,9 @@ namespace WebApplication5.Controllers
         [HttpPost]
         public ActionResult AddTask(Task task)
         {
+            //TODO: ovde bi vlasnik ovog taska trebalo da bude ulogovani korisnik, odn da bude task njegovog user story-a
+            //za sada cu sve stavljati da budu taskovi user story-a 23. :D
+            task.UserStoryId = 23;
             using (var sessionFactory = CreateSessionFactory())
             {
                 using (var session = sessionFactory.OpenSession())
