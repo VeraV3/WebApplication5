@@ -18,6 +18,9 @@ namespace WebApplication5.Models
     public class RegisterViewModel
     {
         [Required]
+        public string UserName { get; set; }
+
+        [Required]
         [EmailAddress]
         public string Email { get; set; }
 
@@ -26,7 +29,7 @@ namespace WebApplication5.Models
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "Passwords do not match.")]
+        [Compare("Password", ErrorMessage = "Pasvordi se ne podudaraju")]
         public string ConfirmPassword { get; set; }
     }
 

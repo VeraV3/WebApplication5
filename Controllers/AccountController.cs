@@ -81,11 +81,10 @@ namespace WebApplication5.Controllers
         [HttpPost]
         [AllowAnonymous]
         //[ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(Usr model)
+        public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                // Kreiraj novog korisnika
                 var user = new Usr
                 {
                     UserName = model.UserName,
@@ -103,7 +102,7 @@ namespace WebApplication5.Controllers
                     }
                 }
 
-                // Prijavi korisnika
+                // TODO prijavi korisnika
 
                 // Redirektuj na odredište
                 return RedirectToAction("Index", "Home");
