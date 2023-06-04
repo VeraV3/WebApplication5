@@ -13,7 +13,7 @@ namespace WebApplication5.Models
             public UserStoryMap()
             {
                 Table("userstory");
-                Id(x => x.Id).Column("id").GeneratedBy.Identity();
+                Id(x => x.Id).Column("id").GeneratedBy.Native();
                 Map(x => x.Title).Column("title");
                 Map(x => x.Description).Column("description");
                 Map(x => x.UserId).Column("userid");

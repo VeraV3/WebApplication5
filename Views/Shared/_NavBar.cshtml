@@ -10,7 +10,7 @@
         </div>
         <div class="navbar-collapse collapse">
             @* @if (User.Identity.IsAuthenticated)*@
-            @if (Session["Username"] != null)
+            ```@if (Session["Username"] != null)
             
                 {
                     <ul class="nav navbar-nav">
@@ -21,6 +21,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (Session["Username"] != null)
                     {
+                        <li>ulogovani korisnik: @Session["Username"]</li>
                         <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
                     }
                     else

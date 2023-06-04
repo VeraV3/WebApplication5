@@ -28,25 +28,6 @@ namespace WebApplication5.Controllers
             return View();
         }
 
-        /*  public ActionResult UserStoryList()
-          {
-
-                  using (var sessionFactory = CreateSessionFactory())
-                  {
-                      using (var session = sessionFactory.OpenSession())
-                      {   List<UserStory> storyList = new List<UserStory>();
-                          storyList = session.Query<UserStory>().ToList();
-                          //storyList = session.Query<UserStory>().Take(10).ToList();
-                      return View(storyList);
-                      }
-                  }
-
-
-
-          }
-        */
-
-
         public ActionResult UserStoryList(string owner)
         {
             using (var sessionFactory = CreateSessionFactory())
@@ -90,8 +71,6 @@ namespace WebApplication5.Controllers
             }
         }
 
-
-
         public ActionResult Create()
         {
             return View();
@@ -100,39 +79,35 @@ namespace WebApplication5.Controllers
         [HttpPost]
         public ActionResult Create(UserStory userStory)
         {
-            
             if (ModelState.IsValid)
             {
-             
-                int nextId;
-                using (var sessionFactory = CreateSessionFactory())
-                {
-                    using (var session = sessionFactory.OpenSession())
-                    {
-                        var maxId = session.Query<UserStory>().Max(us => us.Id);
-                        nextId = maxId + 1;
-                    }
-                }
-
-                
-                userStory.Id = nextId;
-
-                
                 using (var sessionFactory = CreateSessionFactory())
                 {
                     using (var session = sessionFactory.OpenSession())
                     {
                         using (var transaction = session.BeginTransaction())
                         {
-                            session.SaveOrUpdate(userStory);
-                            transaction.Commit();
+                            
+                            string username = (string)Session["Username"];
+                            var user = session.Query<Usr>()
+                            .FirstOrDefault(u => u.UserName == username);
+
+                            if (user != null)
+                            {
+                              userStory.UserId = user.Id;
+                            }
+                            else
+                            {
+                                userStory.UserId = 23;
+                            }
+                               session.SaveOrUpdate(userStory);
+                               transaction.Commit();
                         }
                     }
                 }
 
                 return RedirectToAction("UserStoryList");
             }
-
             
             return View(userStory);
         }

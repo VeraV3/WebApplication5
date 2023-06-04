@@ -19,6 +19,7 @@ namespace WebApplication5.Controllers
     {
         private ISessionFactory _sessionFactory;
 
+
         public AccountController()
         {
 
@@ -37,7 +38,7 @@ namespace WebApplication5.Controllers
         [HttpPost]
        // [AllowAnonymous]
         //[ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(LoginViewModel model)
         {
             using (var session = _sessionFactory.OpenSession())
             {
@@ -111,15 +112,8 @@ namespace WebApplication5.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-            // Metoda za lokalno preusmeravanje
-            private ActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            return RedirectToAction("Index", "Home");
-        }
+          
+       
 
         // Oslobađanje resursa
         protected override void Dispose(bool disposing)
