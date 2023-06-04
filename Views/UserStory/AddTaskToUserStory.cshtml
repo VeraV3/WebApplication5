@@ -1,0 +1,26 @@
+﻿
+@model WebApplication5.Models.TaskViewModel
+
+<h2>Novi task</h2>
+
+@using (Html.BeginForm("AddTaskToUserStory", "UserStory", FormMethod.Post))
+{
+    @Html.ValidationSummary()
+    
+    @Html.HiddenFor(m => m.task.UserStoryId)
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.task.Title, new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.task.Title, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.task.Title, "", new { @class = "text-danger" })
+    </div>
+
+
+    <div>
+        @Html.LabelFor(m => m.task.Description, new { @class = "control-label" })
+        @Html.TextAreaFor(m => m.task.Description, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.task.Description, "", new { @class = "text-danger" })
+    </div>
+    <br />
+    <input type="submit" class="btn btn-primary" value="Add task to user story" />
+}

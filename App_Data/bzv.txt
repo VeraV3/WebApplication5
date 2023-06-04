@@ -188,6 +188,11 @@ namespace WebApplication5.Controllers
                 }
 
 
+                  @Html.ActionLink("Add new tasks for this user story", "AddTaskToUserStory")
+
+                   var userStoryId = firstItem != null ? firstItem.userStoryId : 0;
+
+
                 return View(taskViewModelList);
                 
             }

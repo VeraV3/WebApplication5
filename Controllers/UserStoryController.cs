@@ -199,7 +199,33 @@ namespace WebApplication5.Controllers
             
         }
 
-        
+        public ActionResult AddTaskToUserStory(int id)
+        {
+            TaskViewModel tvm = new TaskViewModel();
+            tvm.task = new Task();
+            tvm.task.UserStoryId = id;
+            return View(tvm);
+        }
+
+        [HttpPost]
+        public ActionResult AddTaskToUserStory(TaskViewModel model)
+        {
+            
+            using (var sessionFactory = CreateSessionFactory())
+            {
+                using (var session = sessionFactory.OpenSession())
+                {
+                    using (var transaction = session.BeginTransaction())
+                    {
+                        session.SaveOrUpdate(model.task);
+                        transaction.Commit();
+                    }
+                }
+            }
+
+            return RedirectToAction("Details", "UserStory", new {id = model.task.UserStoryId }); 
+        }
+
         public ActionResult Details(int id)
         {
             using (var sessionFactory = Fluently.Configure()
@@ -230,6 +256,7 @@ namespace WebApplication5.Controllers
 
                         var taskViewModel = new TaskViewModel();
                         taskViewModel.task = task;
+                        taskViewModel.userStoryId = id;
                         taskViewModel.Owner  = ownerQuery ?? "N/A";
                         taskViewModel.UserStoryTitle = userStoryTitleQuery ?? "N/A";
                         taskViewModelList.Add(taskViewModel);

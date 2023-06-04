@@ -419,6 +419,7 @@
     <Content Include="Views\Shared\_UserStoryListPartial.cshtml" />
     <Content Include="Views\Task\AddTask.cshtml" />
     <Content Include="Views\Shared\_TaskListPartial.cshtml" />
+    <Content Include="Views\UserStory\AddTaskToUserStory.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

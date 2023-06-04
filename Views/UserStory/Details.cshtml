@@ -5,14 +5,14 @@
     var firstItem = Model.FirstOrDefault();
     var userStoryTitle = firstItem != null ? firstItem.UserStoryTitle : string.Empty;
     var owner = firstItem != null ? firstItem.Owner : string.Empty;
+    var userStoryId = firstItem != null ? firstItem.userStoryId : 0;
 }
 
 <h2>Task list for user story named: @userStoryTitle</h2>
 <h3>Owner: @owner</h3>
 
 <p>
-    @Html.ActionLink("Add new tasks for this user story", "Create") <!--promeni akciju i dodaj new { id = item.task.Id }-->
-</p>
+    @Html.ActionLink("Add new tasks for this user story", "AddTaskToUserStory", new {id = userStoryId }) 
 <table class="table">
     <tr>
         <th>
