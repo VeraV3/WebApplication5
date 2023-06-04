@@ -2,15 +2,24 @@
 
 @{
     ViewBag.Title = "Task list";
+    string owner = ViewBag.FilterOwner as string;
+    if (!string.IsNullOrEmpty(owner))
+    {
+        ViewBag.Title += " - Owner: " + owner;
+    }
 }
 
-<h2>Task list</h2>
+<h2>@Html.Raw(ViewBag.Title)</h2>
 
+@if (string.IsNullOrEmpty(owner))
+{
+    <p id="createNewLink">
+        @Html.ActionLink("Create new task", "AddTask")
+    </p>
+}
 
 @using (Html.BeginForm("TaskList", "Task", FormMethod.Get))
-    {<p>
-        @Html.ActionLink("Create new", "AddTask")
-    </p>
+{
     <label>Owner:</label>
     @Html.TextBox("owner", ViewBag.FilterOwner as string)
     <input type="submit" value="Filter" />
@@ -46,8 +55,8 @@
                     @Html.DisplayFor(modelItem => item.UserStoryTitle)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.task.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.task.Id })
+                    @Html.ActionLink("Edit task", "Edit", "Task", new { id = item.task.Id }, null) |
+                    @Html.ActionLink("Delete task", "Delete", "Task", new { id = item.task.Id }, null)
                 </td>
             </tr>
         }
@@ -72,6 +81,13 @@
                     }
                 });
             });
+
+            var owner = '@ViewBag.FilterOwner';
+            if (owner === '') {
+                $('#createNewLink').show();
+            } else {
+                $('#createNewLink').hide();
+            }
         });
     </script>
 }

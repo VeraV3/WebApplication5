@@ -1,5 +1,4 @@
 ﻿TODO:
-* dodaj akciju za dodavanje taska u postojeci user story
 * registracija
 * logovanje
 * ogranicen pristup
@@ -24,5 +23,7 @@ DONE:
 * napravi za taskove filtriranje prema vlasniku
 * napravi za userstory-e filtriranje prema vlasniku (umesto prema imenu user story-a? :D )
 * sredi linkove u listama, izbrisi suvisno u details user story
+* dodaj akciju za dodavanje taska u postojeci user story
+
 
 npawlickm taj username ima dosta userstory-a :D 
