@@ -4,8 +4,8 @@
 * ogranicen pristup
 * problemi sa kreiranjem userstory-a
 * vlasnik taska ili price koja se pravi da bude ulogovani korisnik, ne 23. :D
-* napravi neki popup
-* kad filtriram taskove, da se ne pojavljuje opcija za new
+* napravi neki popup tipa kad je obrisan task
+* kad filtriram taskove, da se ne pojavljuje opcija za new i u naslovu da stoji vlasnik
 
 DETALJI:
 * resiti se vorningsa

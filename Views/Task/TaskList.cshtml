@@ -63,6 +63,14 @@
 
     </table>
 }
+@if (TempData["DeletedTaskTitle"] != null)
+{
+    <script>
+        window.onload = function() {
+            alert("Uspješno obrisan zadatak: '@TempData["DeletedTaskTitle"]'");
+        }
+    </script>
+}
 
 @section scripts {
     <script>

@@ -67,34 +67,34 @@ namespace WebApplication5.Controllers
                 }
             }
         }
-
         public ActionResult Delete(int id)
         {
             using (var sessionFactory = Fluently.Configure()
-               .Database(PostgreSQLConfiguration.Standard.ConnectionString("Server=localhost;Port=5432;Database=mojabaza;User Id=postgres;Password=1234;"))
-               .Mappings(m => m.FluentMappings.AddFromAssemblyOf<TaskMap>())
-               .BuildSessionFactory())
+                .Database(PostgreSQLConfiguration.Standard.ConnectionString("Server=localhost;Port=5432;Database=mojabaza;User Id=postgres;Password=1234;"))
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<TaskMap>())
+                .BuildSessionFactory())
             {
+                var deletedTaskTitle = DeleteTask(id, sessionFactory);
 
-
-                DeleteTask(id, sessionFactory);
+                TempData["DeletedTaskTitle"] = deletedTaskTitle;
 
                 return RedirectToAction("TaskList", "Task");
-
-
             }
-
-
         }
 
-        void DeleteTask(int taskId, ISessionFactory sessionFactory)
+        string DeleteTask(int taskId, ISessionFactory sessionFactory)
         {
+            string deletedTaskTitle;
+
             using (var session = sessionFactory.OpenSession())
             {
+                var deletedTask = session.Get<Task>(taskId);
+                deletedTaskTitle = deletedTask.Title;
+
                 var sqlQuery = session.CreateSQLQuery(@"
-                         DELETE FROM task
-                         WHERE id = :taskId
-                     ");
+            DELETE FROM task
+            WHERE id = :taskId
+        ");
                 sqlQuery.SetInt32("taskId", taskId);
 
                 using (var transaction = session.BeginTransaction())
@@ -103,7 +103,10 @@ namespace WebApplication5.Controllers
                     transaction.Commit();
                 }
             }
+
+            return deletedTaskTitle;
         }
+
 
 
         public ActionResult AddTask()
