@@ -11,14 +11,19 @@
     <div class="form-group">
         @Html.LabelFor(m => m.task.Title, new { @class = "control-label" })
         @Html.TextBoxFor(m => m.task.Title, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m=>m.task.Title, "", new { @class = "text-danger" })
+        @Html.ValidationMessageFor(m => m.task.Title, "", new { @class = "text-danger" })
     </div>
-
 
     <div>
         @Html.LabelFor(m => m.task.Description, new { @class = "control-label" })
         @Html.TextAreaFor(m => m.task.Description, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.task.Description, "", new { @class = "text-danger" })
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.task.UserStoryId, new { @class = "control-label" })
+        @Html.TextAreaFor(m => m.task.UserStoryId, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.task.UserStoryId, "", new { @class = "text-danger" })
     </div>
     <br />
     <input type="submit" class="btn btn-primary" value="Add task" />

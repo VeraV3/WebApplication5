@@ -1,18 +1,14 @@
 ﻿TODO:
-* logovanje
-* ogranicen pristup
-* problemi sa kreiranjem userstory-a
-* vlasnik taska ili price koja se pravi da bude ulogovani korisnik, ne 23. :D
 * dodaj popup za brisanje userstory-a
 * kad filtriram taskove, da se ne pojavljuje opcija za new i u naslovu da stoji vlasnik
 
 DETALJI:
-* resiti se vorningsa
+* pokusaj ponovo sa crtez temom i dugmadima
 * dodaj svim view-ima deljeni layout
 * pozabavi se jos formama crvena slova za greske
 * napravi folder za modelView
 * pokusaj opet sa helper folderom
-* pokusaj ponovo sa crtez temom i dugmadima
+* resiti se vorningsa
 * pokusaj helper da ugradis u sve fajlove gde treba umesto ponavljanja koda
 * u modelu taskviewmodel imam visak prorerti, bez kog se moze
 * u filtriranju trimovati string
@@ -25,5 +21,10 @@ DONE:
 * sredi linkove u listama, izbrisi suvisno u details user story
 * dodaj akciju za dodavanje taska u postojeci user story
 * registracija 
+* problemi sa kreiranjem userstory-a
+* logovanje
+* ogranicen pristup
+* vlasnik taska ili price koja se pravi da bude ulogovani korisnik, ne 23. :D
+
 
 npawlickm taj username ima dosta userstory-a :D 
