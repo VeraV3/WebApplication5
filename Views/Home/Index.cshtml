@@ -3,8 +3,19 @@
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
+    <h1>ASP.NET MVC</h1>
     <p class="lead">Evidencija user story-a i taskova</p>
-    
+    @if (Session["Username"] != null)
+    {
+        <p>Dobrodošli, @Session["Username"]!</p>
+       
+    }
+    @if (Session["Username"] == null)
+    {
+        <p>Dobrodošli, goste! Molimo Vas da se prijavite da biste pristupili sadržaju.</p>
+        
+    }
+
+
 </div>
 

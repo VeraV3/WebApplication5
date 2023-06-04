@@ -1,5 +1,4 @@
 ﻿TODO:
-* registracija
 * logovanje
 * ogranicen pristup
 * problemi sa kreiranjem userstory-a
@@ -10,13 +9,14 @@
 DETALJI:
 * resiti se vorningsa
 * dodaj svim view-ima deljeni layout
-* pozabavi se jos formama
+* pozabavi se jos formama crvena slova za greske
 * napravi folder za modelView
 * pokusaj opet sa helper folderom
 * pokusaj ponovo sa crtez temom i dugmadima
 * pokusaj helper da ugradis u sve fajlove gde treba umesto ponavljanja koda
 * u modelu taskviewmodel imam visak prorerti, bez kog se moze
 * u filtriranju trimovati string
+* ulogovati registrovanog korisnika
 
 DONE:
 * napravi modelview-e za te liste da mozes da iscitas vlasnika user story-a i taska i da ga prikazes
@@ -24,6 +24,6 @@ DONE:
 * napravi za userstory-e filtriranje prema vlasniku (umesto prema imenu user story-a? :D )
 * sredi linkove u listama, izbrisi suvisno u details user story
 * dodaj akciju za dodavanje taska u postojeci user story
- 
+* registracija 
 
 npawlickm taj username ima dosta userstory-a :D 

@@ -8,11 +8,11 @@ namespace WebApplication5.Models
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "Imejl je obavezan")]
-        [EmailAddress(ErrorMessage = "Pogresan format za imejl!")]
+        [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress(ErrorMessage = "Incorrect email format!")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Pasvord je obavezno polje!")]
+        [Required(ErrorMessage = "Password is a required field!")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

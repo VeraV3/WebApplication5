@@ -20,7 +20,7 @@ namespace WebApplication5.Models
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "Pasvordi se ne podudaraju")]
+        [Compare("Password", ErrorMessage = "The passwords do not match.")]
         public string ConfirmPassword { get; set; }
     }
 }

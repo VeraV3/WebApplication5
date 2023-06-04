@@ -39,29 +39,22 @@ namespace WebApplication5.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            
-
-            // Provera korisničkih podataka
             using (var session = _sessionFactory.OpenSession())
             {
                 var user = session.QueryOver<Usr>()
                     .Where(u => u.Email == model.Email && u.Password == model.Password)
                     .SingleOrDefault();
-
-                if (user != null && (!ModelState.IsValid) )
+                if (user != null)
                 {
-                    // Postavi sesiju za prijavljenog korisnika
                     Session["Username"] = user.UserName;
-
-                    // Redirektuj na odredište
                     return RedirectToAction("Index", "Home");
                 }
-
                 else
                 {
-                    ModelState.AddModelError("", "Neispravni podaci za prijavljivanje.");
+                    ModelState.AddModelError("", "Invalid login credentials.");
                     return View(model);
                 }
+
             }
         }
 
@@ -87,28 +80,24 @@ namespace WebApplication5.Controllers
                     Password = model.Password
                 };
 
-                // Sačuvaj korisnika
+                
                 using (var session = _sessionFactory.OpenSession())
                 {
                     using (var transaction = session.BeginTransaction())
                     {
-                        session.Save(user); // ovde se baca izuzetak
+                        session.Save(user); 
                         transaction.Commit();
                     }
                 }
 
                 // TODO prijavi korisnika 
-
-                // Redirektuj na odredište
                 return RedirectToAction("Index", "Home");
             }
-
-            // Ako nešto nije u redu, ponovno prikaži formu za registraciju
             return View(model);
         }
 
         // POST: /Account/Logout
-        [HttpPost]
+        //[HttpPost]
         //[ValidateAntiForgeryToken]
         public ActionResult Logout()
         {

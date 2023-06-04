@@ -10,23 +10,25 @@
         </div>
         <div class="navbar-collapse collapse">
             @* @if (User.Identity.IsAuthenticated)*@
-            {
-            <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("User stories", "UserStoryList", "UserStory")</li>
-                <li>@Html.ActionLink("Tasks", "TaskList", "Task")</li>
-            </ul>
-            }
-            <ul class="nav navbar-nav navbar-right">
-                @if (User.Identity.IsAuthenticated)
+            @if (Session["Username"] != null)
+            
                 {
-                    <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("User stories", "UserStoryList", "UserStory")</li>
+                        <li>@Html.ActionLink("Tasks", "TaskList", "Task")</li>
+                    </ul>
                 }
-                else
-                {
-                    <li>@Html.ActionLink("Register", "Register", "Account")</li>
-                    <li>@Html.ActionLink("Login", "Login", "Account")</li>
-                }
-            </ul>
-        </div>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (Session["Username"] != null)
+                    {
+                        <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Register", "Register", "Account")</li>
+                        <li>@Html.ActionLink("Login", "Login", "Account")</li>
+                    }
+                </ul>
+            </div>
     </div>
 </div>
